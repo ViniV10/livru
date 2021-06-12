@@ -1,0 +1,107 @@
+import React, {useState, useEffect} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  FlatList,
+  ActivityIndicator,
+  View,
+} from 'react-native';
+import * as APIConfig from './componentes/api';
+
+export default function () {
+  const [nome, setNome] = useState('');
+  const [dados, setDados] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+
+
+  function handleSubmit(event) {
+    useEffect(() => {
+      fetch(
+        APIConfig.googleBooksURL +
+          nome +
+          APIConfig.keyParaPesquisa +
+          '&maxResults=40',
+      )
+        .then(resp => resp.json())
+        .then(json => setDados(json))
+        .catch(() => alert('Erro ao carregar dados'))
+        .finally(() => setCarregando(false));
+    }, []);
+  }
+
+  return (
+    <SafeAreaView>
+      <View>
+        <Text style={estilos.hello}>BOOKS</Text>
+        <TextInput
+          style={estilos.textInput}
+          placeholder="Digite o nome do livro"
+          value={nome}
+          onChangeText={text => setNome(text)}
+        />
+        <TouchableHighlight style={estilos.btn} onPress={handleSubmit}>
+          <Text style={estilos.txtBtn}>Pesquisar</Text>
+        </TouchableHighlight>
+      </View>
+
+      <View>
+        <View>
+          {carregando ? (
+            <ActivityIndicator />
+          ) : (
+            <FlatList
+              data={dados}
+              renderItem={({item}) => (
+                <Text>
+                  {item.items.id}, {item.items.volumeInfo.title}
+                </Text>
+              )}
+              keyExtractor={({id}, index) => id}
+            />
+          )}
+        </View>
+        <View>
+          <Text style={estilos.a}>oi</Text>
+          <Text style={estilos.a}>{dados?.items[0]?.volumeInfo.title}</Text>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const estilos = StyleSheet.create({
+  hello: {
+    fontSize: 30,
+    padding: 10,
+    color: '#f00',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: '35%',
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#000',
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+  },
+  btn: {
+    backgroundColor: '#f22',
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    margin: 15,
+  },
+  txtBtn: {
+    color: '#fff',
+  },
+  a: {
+    margin: 15,
+  },
+});
