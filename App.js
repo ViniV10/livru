@@ -9,7 +9,7 @@ import {
 import Livros from './componentes/pesquisaLivros/BuscarLivros';
 
 export default function () {
-  const [nome, setNome] = useState('java');
+  const [nome, setNome] = useState('otelo shakespeare');
   const [pesquisa, setPesquisa] = useState(true);
 
   return (
@@ -20,7 +20,6 @@ export default function () {
         value={nome}
         onChangeText={text => setNome(text)}
       />
-      <Text>Hello, world</Text>
       {pesquisa ? <Livros nome={nome} /> : <Text>Nada por aqui :/</Text>}
     </View>
   );
@@ -48,5 +47,6 @@ const estilos = StyleSheet.create({
   },
   container: {
     backgroundColor: '#fff',
+    margin: 5,
   },
 });
