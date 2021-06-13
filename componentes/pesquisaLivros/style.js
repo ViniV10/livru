@@ -4,9 +4,10 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#035AA6',
-    borderWidth: 2,
-    borderColor: '#565855',
+    backgroundColor: '#90E0EF',
+    borderLeftWidth: 15,
+    borderLeftColor: '#023E8A',
+    borderRadius: 10,
     height: 150,
     marginTop: 5,
     marginBottom: 5,
@@ -20,7 +21,7 @@ export default StyleSheet.create({
   tituloLivros: {
     fontSize: 16,
     marginBottom: 15,
-    color: '#919A79',
+    color: '#023E8A',
     justifyContent: 'center',
   },
   infoLivros: {
