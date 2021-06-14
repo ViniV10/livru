@@ -6,8 +6,8 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-import * as APIConfig from './api';
-import renderizarLivros from './informaçõesDosLivros';
+import * as APIConfig from './API/api';
+import renderizarLivros from './informaçõesDosLivros/informaçõesDosLivros';
 
 export default function (props) {
   const [carregando, setCarregando] = useState(true);
