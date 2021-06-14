@@ -1,29 +1,11 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableHighlight,
-  Button,
-} from 'react-native';
+import React from 'react';
+import {View, Text, Button, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import BuscarLivros from './src/componentes/pesquisaLivros/index';
+import Home from './src/componentes/telaInicial/index';
 
 const Pilha = createStackNavigator();
-
-function Home({navigation}) {
-  return (
-    <View>
-      <Text style={{padding: 30}}> Tela inicial </Text>
-      <Button
-        title="Livros"
-        onPress={() => navigation.navigate('BuscarLivros')}
-      />
-    </View>
-  );
-}
 
 export default function () {
   return (
