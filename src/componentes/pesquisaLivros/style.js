@@ -9,8 +9,6 @@ export default StyleSheet.create({
     height: 50,
     backgroundColor: '#90E0EF',
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#023E8A',
     padding: 1,
   },
   textInput: {

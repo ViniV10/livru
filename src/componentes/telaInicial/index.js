@@ -4,10 +4,8 @@ import FabButton from './assets/FabButton';
 
 export default function Home({navigation}) {
   return (
-    <View>
-      <View style={{alignItems: 'flex-end'}}>
-        <FabButton />
-      </View>
+    <View style={{flex: 1}}>
+      <FabButton style={{bottom: 40, right: 30}} />
     </View>
   );
 }
