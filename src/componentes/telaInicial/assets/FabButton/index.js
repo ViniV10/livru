@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Animated,
-} from 'react-native';
+import {View, TouchableWithoutFeedback, Animated} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 import style from './style';
@@ -62,6 +57,11 @@ export default function FabButton(props) {
     ],
   };
 
+  function navegarTelaBuscarLivros() {
+    navigation.navigate('BuscarLivros');
+    toggleMenu();
+  }
+
   return (
     <View style={[style.container, props.style]}>
       <TouchableWithoutFeedback
@@ -70,8 +70,7 @@ export default function FabButton(props) {
           <MaterialCommunityIcons name="book-plus" size={24} color="#00f" />
         </Animated.View>
       </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback
-        onPress={() => navigation.navigate('BuscarLivros')}>
+      <TouchableWithoutFeedback onPress={navegarTelaBuscarLivros}>
         <Animated.View style={[style.button, style.submenu, bookSearch]}>
           <MaterialCommunityIcons name="book-search" size={24} color="#00f" />
         </Animated.View>

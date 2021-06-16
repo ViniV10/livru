@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  StyleSheet,
-} from 'react-native';
+import {View, FlatList, ActivityIndicator, StyleSheet} from 'react-native';
 import * as APIConfig from './API/api';
-import renderizarLivros from './informaçõesDosLivros/informaçõesDosLivros';
+import RenderizarLivros from './informaçõesDosLivros/informaçõesDosLivros';
+import {useNavigation} from '@react-navigation/native';
 
-export default function (props) {
+export default function (props, {item}) {
   const [carregando, setCarregando] = useState(true);
   const [dados, setDados] = useState([]);
 
@@ -18,13 +13,15 @@ export default function (props) {
       APIConfig.googleBooksURL +
         props.nome +
         APIConfig.keyParaPesquisa +
-        '&maxResults=40',
+        '&maxResults=5',
     )
       .then(resp => resp.json())
       .then(json => setDados(json.items))
       .catch(() => alert('Erro ao carregar dados'))
       .finally(() => setCarregando(false));
   }, []);
+
+  const {navigate} = useNavigation();
 
   return (
     <View>
@@ -36,7 +33,12 @@ export default function (props) {
         <FlatList
           data={dados}
           keyExtractor={({id}, index) => id}
-          renderItem={renderizarLivros}
+          renderItem={({item}) => (
+            <RenderizarLivros
+              item={item}
+              onItemClick={navigate.bind(this, 'LivroExpandido', {item})}
+            />
+          )}
         />
       )}
     </View>

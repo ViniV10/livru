@@ -1,15 +1,9 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native';
+import {View, Text, TextInput} from 'react-native';
 import Livros from './assets/BuscarLivros';
-import estilos from './style';
+import style from './style';
 
-export default function ({navigation}) {
+export default function pesquisaLivros() {
   const [nome, setNome] = useState('');
   const [pesquisa, setPesquisa] = useState(false);
 
@@ -19,10 +13,10 @@ export default function ({navigation}) {
   }
 
   return (
-    <View style={estilos.containerGeral}>
-      <View style={estilos.containerPesquisa}>
+    <View style={style.containerGeral}>
+      <View style={style.containerPesquisa}>
         <TextInput
-          style={estilos.textInput}
+          style={style.textInput}
           placeholder="Digite o nome do livro"
           placeholderTextColor="#7286A0"
           value={nome}
@@ -30,7 +24,7 @@ export default function ({navigation}) {
           onChangeText={text => pesquisar(text)}
         />
       </View>
-      <View style={estilos.livros}>
+      <View style={style.livros}>
         {pesquisa ? <Livros nome={nome} /> : <Text> </Text>}
       </View>
     </View>
