@@ -13,7 +13,7 @@ export default function (props, {item}) {
       APIConfig.googleBooksURL +
         props.nome +
         APIConfig.keyParaPesquisa +
-        '&maxResults=5',
+        '&maxResults=40',
     )
       .then(resp => resp.json())
       .then(json => setDados(json.items))

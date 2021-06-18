@@ -20,12 +20,12 @@ export default StyleSheet.create({
     },
   },
   menu: {
-    backgroundColor: '#90E0EF',
+    backgroundColor: '#023E8A',
   },
   submenu: {
     width: 48,
     height: 48,
     borderRadius: 48 / 2,
-    backgroundColor: '#90E0EF',
+    backgroundColor: '#023E8A',
   },
 });

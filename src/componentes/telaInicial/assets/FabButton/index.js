@@ -67,17 +67,21 @@ export default function FabButton(props) {
       <TouchableWithoutFeedback
         onPress={() => alert('Adicionar livros manualmente')}>
         <Animated.View style={[style.button, style.submenu, bookPlus]}>
-          <MaterialCommunityIcons name="book-plus" size={24} color="#00f" />
+          <MaterialCommunityIcons name="book-plus" size={24} color="#90E0EF" />
         </Animated.View>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={navegarTelaBuscarLivros}>
         <Animated.View style={[style.button, style.submenu, bookSearch]}>
-          <MaterialCommunityIcons name="book-search" size={24} color="#00f" />
+          <MaterialCommunityIcons
+            name="book-search"
+            size={24}
+            color="#90E0EF"
+          />
         </Animated.View>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={toggleMenu}>
         <Animated.View style={[style.button, style.menu, rotation]}>
-          <MaterialCommunityIcons name="plus" size={30} color="#f00" />
+          <MaterialCommunityIcons name="plus" size={30} color="#E5E5E5" />
         </Animated.View>
       </TouchableWithoutFeedback>
     </View>
