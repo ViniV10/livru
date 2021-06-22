@@ -6,6 +6,7 @@ import BuscarLivros from './src/componentes/pesquisaLivros/index';
 import Home from './src/componentes/telaInicial/index';
 import LivroExpandido from './src/componentes/TelaLivroExpandido/index';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AdicionarLivros from './src/componentes/database/adicionarLivros';
 
 const Pilha = createStackNavigator();
 
@@ -13,6 +14,17 @@ export default function () {
   return (
     <NavigationContainer>
       <Pilha.Navigator initialRouteName="Home">
+        <Pilha.Screen
+          name="AdicionarLivros"
+          component={AdicionarLivros}
+          options={{
+            title: 'Adicionar livros manualmente',
+            headerTintColor: '#E5E5E5',
+            headerStyle: {
+              backgroundColor: '#023E8A',
+            },
+          }}
+        />
         <Pilha.Screen
           name="Home"
           component={Home}
@@ -48,7 +60,7 @@ export default function () {
               <TouchableOpacity onPress={() => alert('This is a button!')}>
                 <View
                   style={{
-                    backgroundColor: '#E5E5E5',
+                    backgroundColor: '#90E0EF',
                     padding: 16,
                     borderRadius: 5,
                   }}>

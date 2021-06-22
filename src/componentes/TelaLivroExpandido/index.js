@@ -54,7 +54,7 @@ function LivroExpandido({route, item}) {
       <ScrollView>
         <View style={estilos.containerInfo}>
           <View style={estilos.texto}>
-            <Text> Autoria </Text>
+            <Text style={{color: '#023E8A'}}> Autoria </Text>
             <Text
               numberOfLines={1}
               style={({width: 80}, estilos.textoPrincipal)}>
@@ -67,7 +67,7 @@ function LivroExpandido({route, item}) {
           </View>
 
           <View style={estilos.texto}>
-            <Text>Páginas </Text>
+            <Text style={{color: '#023E8A'}}>Páginas </Text>
             <Text numberOfLines={1} style={estilos.textoPrincipal}>
               {dados.volumeInfo.pageCount !== undefined
                 ? `     ${dados.volumeInfo.pageCount}`
@@ -76,11 +76,11 @@ function LivroExpandido({route, item}) {
           </View>
 
           <View style={estilos.texto}>
-            <Text>Linguagem </Text>
+            <Text style={{color: '#023E8A'}}>Linguagem </Text>
             <Text numberOfLines={1} style={estilos.textoPrincipal}>
-              {dados.volumeInfo.language !== undefined
+              {dados.volumeInfo.language !== 'un'
                 ? `      ${dados.volumeInfo.language}`
-                : '-'}
+                : '        -'}
             </Text>
           </View>
         </View>
@@ -143,7 +143,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
   },
   containerInfo: {
-    margin: 10,
+    margin: 1,
     alignSelf: 'center',
     flexDirection: 'row',
   },
@@ -152,13 +152,13 @@ const estilos = StyleSheet.create({
     margin: 0,
     padding: 10,
     alignItems: 'center',
-    color: '#023E8A',
   },
   textoPrincipal: {
     fontSize: 16,
     margin: 5,
     width: 75,
     alignSelf: 'center',
+    color: '#023E8A',
   },
   titulo: {
     fontSize: 20,

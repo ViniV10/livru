@@ -62,10 +62,14 @@ export default function FabButton(props) {
     toggleMenu();
   }
 
+  function navegarTelaAdicionarLivros() {
+    navigation.navigate('AdicionarLivros');
+    toggleMenu();
+  }
+
   return (
     <View style={[style.container, props.style]}>
-      <TouchableWithoutFeedback
-        onPress={() => alert('Adicionar livros manualmente')}>
+      <TouchableWithoutFeedback onPress={navegarTelaAdicionarLivros}>
         <Animated.View style={[style.button, style.submenu, bookPlus]}>
           <MaterialCommunityIcons name="book-plus" size={24} color="#90E0EF" />
         </Animated.View>
