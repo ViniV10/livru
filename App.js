@@ -2,11 +2,11 @@ import React from 'react';
 import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import BuscarLivros from './src/componentes/pesquisaLivros/index';
-import Home from './src/componentes/telaInicial/index';
+import BuscarLivros from './src/componentes/TelaPesquisaLivros/index';
+import Home from './src/componentes/TelaInicial/index';
 import LivroExpandido from './src/componentes/TelaLivroExpandido/index';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AdicionarLivros from './src/componentes/database/adicionarLivros';
+import AdicionarLivros from './src/componentes/TelaAdicionarLivros/index';
 
 const Pilha = createStackNavigator();
 

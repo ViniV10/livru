@@ -27,15 +27,6 @@ export default function Home({navigation}) {
     createTable();
   }, []);
 
-  // const createTable = () => {
-  //   db.transaction(tx => {
-  //     tx.executeSql(
-  //       'CREATE TABLE IF NOT EXISTS Livros (id TEXT PRIMARY KEY, thumbnail	BLOB, authors TEXT, publishedDate NUMERIC, pages	INTEGER, description TEXT, title TEXT )',
-  //       [],
-  //     );
-  //   });
-  // };
-
   const createTable = async () => {
     try {
       await db.transaction(async tx => {
@@ -95,47 +86,47 @@ export default function Home({navigation}) {
     }
   };
 
-  const updateData = async () => {
-    if (title.length == 0 || id.length == 0) {
-      Alert.alert('Warning!', 'Please write the data.');
-    } else {
-      try {
-        db.transaction(async tx => {
-          tx.executeSql(
-            'UPDATE Livros SET title=?',
-            [title],
-            () => {
-              Alert.alert('Success!', 'O título foi alterado');
-            },
-            error => {
-              console.log(error);
-            },
-          );
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+//   const updateData = async () => {
+//     if (title.length == 0 || id.length == 0) {
+//       Alert.alert('Warning!', 'Please write the data.');
+//     } else {
+//       try {
+//         db.transaction(async tx => {
+//           tx.executeSql(
+//             'UPDATE Livros SET title=?',
+//             [title],
+//             () => {
+//               Alert.alert('Success!', 'O título foi alterado');
+//             },
+//             error => {
+//               console.log(error);
+//             },
+//           );
+//         });
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     }
+//   };
 
-  const removeData = async () => {
-    try {
-      db.transaction(tx => {
-        tx.executeSql(
-          'DELETE FROM Livros',
-          [],
-          () => {
-            navigation.navigate('Home');
-          },
-          error => {
-            console.log(error);
-          },
-        );
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+//   const removeData = async () => {
+//     try {
+//       db.transaction(tx => {
+//         tx.executeSql(
+//           'DELETE FROM Livros',
+//           [],
+//           () => {
+//             navigation.navigate('Home');
+//           },
+//           error => {
+//             console.log(error);
+//           },
+//         );
+//       });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
 
   // const removeTable = async () => {
   //   try {
@@ -163,8 +154,8 @@ export default function Home({navigation}) {
           flex: 1,
           backgroundColor: '#90E0EF',
           borderRadius: 10,
-          margin: 5,
-          padding: 5,
+          margin: 15,
+          padding: 15,
         }}
         placeholder="nome do livro"
         onChangeText={value => setTitle(value)}
@@ -174,8 +165,8 @@ export default function Home({navigation}) {
           flex: 1,
           backgroundColor: '#90E0EF',
           borderRadius: 10,
-          margin: 5,
-          padding: 5,
+          margin: 15,
+          padding: 15,
         }}
         placeholder="autoria"
         onChangeText={value => setAuthors(value)}
@@ -185,8 +176,8 @@ export default function Home({navigation}) {
           flex: 1,
           backgroundColor: '#90E0EF',
           borderRadius: 10,
-          margin: 5,
-          padding: 5,
+          margin: 15,
+          padding: 15,
         }}
         placeholder="data de publicação"
         onChangeText={value => setPublishedDate(value)}
@@ -196,8 +187,8 @@ export default function Home({navigation}) {
           flex: 1,
           backgroundColor: '#90E0EF',
           borderRadius: 10,
-          margin: 5,
-          padding: 5,
+          margin: 15,
+          padding: 15,
         }}
         placeholder="número de páginas"
         onChangeText={value => setPages(value)}
@@ -207,8 +198,9 @@ export default function Home({navigation}) {
           flex: 1,
           backgroundColor: '#90E0EF',
           borderRadius: 10,
-          margin: 5,
-          padding: 5,
+          margin: 15,
+          marginBottom: 100,
+          padding: 15,
         }}
         placeholder="descrição"
         onChangeText={value => setDescription(value)}

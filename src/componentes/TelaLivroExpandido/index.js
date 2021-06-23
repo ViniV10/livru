@@ -26,7 +26,7 @@ function LivroExpandido({route, item}) {
         ) : (
           <ImageBackground
             style={({flex: 1}, estilos.background)}
-            source={require('../pesquisaLivros/assets/images/semImagem.png')}
+            source={require('../TelaPesquisaLivros/assets/images/semImagem.png')}
             blurRadius={10}>
             <Text numberOfLines={1} style={estilos.titulo}>
               {dados.volumeInfo.title}
@@ -42,7 +42,7 @@ function LivroExpandido({route, item}) {
           ) : (
             <Image
               style={estilos.imagem}
-              source={require('../pesquisaLivros/assets/images/semImagem.png')}
+              source={require('../TelaPesquisaLivros/assets/images/semImagem.png')}
             />
           )}
         </View>
