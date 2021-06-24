@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, View, TextInput, Button} from 'react-native';
+import {
+  Alert,
+  View,
+  TextInput,
+  Button,
+  KeyboardAvoidingView,
+} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
 const db = SQLite.openDatabase(
@@ -86,47 +92,47 @@ export default function Home({navigation}) {
     }
   };
 
-//   const updateData = async () => {
-//     if (title.length == 0 || id.length == 0) {
-//       Alert.alert('Warning!', 'Please write the data.');
-//     } else {
-//       try {
-//         db.transaction(async tx => {
-//           tx.executeSql(
-//             'UPDATE Livros SET title=?',
-//             [title],
-//             () => {
-//               Alert.alert('Success!', 'O título foi alterado');
-//             },
-//             error => {
-//               console.log(error);
-//             },
-//           );
-//         });
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     }
-//   };
+  //   const updateData = async () => {
+  //     if (title.length == 0 || id.length == 0) {
+  //       Alert.alert('Warning!', 'Please write the data.');
+  //     } else {
+  //       try {
+  //         db.transaction(async tx => {
+  //           tx.executeSql(
+  //             'UPDATE Livros SET title=?',
+  //             [title],
+  //             () => {
+  //               Alert.alert('Success!', 'O título foi alterado');
+  //             },
+  //             error => {
+  //               console.log(error);
+  //             },
+  //           );
+  //         });
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     }
+  //   };
 
-//   const removeData = async () => {
-//     try {
-//       db.transaction(tx => {
-//         tx.executeSql(
-//           'DELETE FROM Livros',
-//           [],
-//           () => {
-//             navigation.navigate('Home');
-//           },
-//           error => {
-//             console.log(error);
-//           },
-//         );
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  //   const removeData = async () => {
+  //     try {
+  //       db.transaction(tx => {
+  //         tx.executeSql(
+  //           'DELETE FROM Livros',
+  //           [],
+  //           () => {
+  //             navigation.navigate('Home');
+  //           },
+  //           error => {
+  //             console.log(error);
+  //           },
+  //         );
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
   // const removeTable = async () => {
   //   try {
@@ -148,6 +154,7 @@ export default function Home({navigation}) {
   // };
 
   return (
+    // <KeyboardAvoidingView behavior={'position'}>
     <View style={{flex: 1, backgroundColor: '#E5E5E5', padding: 10}}>
       <TextInput
         style={{
@@ -179,8 +186,17 @@ export default function Home({navigation}) {
           margin: 15,
           padding: 15,
         }}
-        placeholder="data de publicação"
-        onChangeText={value => setPublishedDate(value)}
+        value={publishedDate}
+        placeholder="data de publicação (mm/aaaa)"
+        maxLength={7}
+        keyboardType="numeric"
+        onChangeText={text => {
+          setPublishedDate(
+            text.length === 3 && !text.includes('/')
+              ? `${text.substring(0, 2)}/${text.substring(2)}`
+              : text,
+          );
+        }}
       />
       <TextInput
         style={{
@@ -190,6 +206,7 @@ export default function Home({navigation}) {
           margin: 15,
           padding: 15,
         }}
+        keyboardType="numeric"
         placeholder="número de páginas"
         onChangeText={value => setPages(value)}
       />
@@ -207,5 +224,6 @@ export default function Home({navigation}) {
       />
       <Button title="Executar" color="#1eb900" onPress={setData} />
     </View>
+    // </KeyboardAvoidingView>
   );
 }

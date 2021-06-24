@@ -1,10 +1,13 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Keyboard} from 'react-native';
 import style from './style';
 
 function renderizarLivros({item, _id, onItemClick}) {
   return (
-    <TouchableOpacity onPress={() => onItemClick(_id)}>
+    <TouchableOpacity
+      onPress={() => onItemClick(_id)}
+      // onPressIn={Keyboard.dismiss}
+    >
       <View style={style.container}>
         <View>
           {item.volumeInfo.imageLinks ? (

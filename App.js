@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import BuscarLivros from './src/componentes/TelaPesquisaLivros/index';
@@ -61,8 +61,12 @@ export default function () {
                 <View
                   style={{
                     backgroundColor: '#90E0EF',
-                    padding: 16,
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     borderRadius: 5,
+                    width: 40,
+                    height: 40,
+                    marginRight: 5,
                   }}>
                   <MaterialCommunityIcons
                     name="plus"

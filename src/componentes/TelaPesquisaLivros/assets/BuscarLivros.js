@@ -1,8 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, ActivityIndicator, StyleSheet} from 'react-native';
+import {
+  View,
+  FlatList,
+  ActivityIndicator,
+  StyleSheet,
+  Keyboard,
+} from 'react-native';
 import * as APIConfig from './API/api';
-import RenderizarLivros from './informaçõesDosLivros/informaçõesDosLivros';
 import {useNavigation} from '@react-navigation/native';
+import RenderizarLivros from './informaçõesDosLivros/informaçõesDosLivros';
 
 export default function (props, {item}) {
   const [carregando, setCarregando] = useState(true);
@@ -31,6 +37,9 @@ export default function (props, {item}) {
         </View>
       ) : (
         <FlatList
+          onScroll={Keyboard.dismiss}
+          keyboardDismissMode="on-drag"
+          keyboardShouldPersistTaps="never"
           data={dados}
           keyExtractor={({id}, index) => id}
           renderItem={({item}) => (
