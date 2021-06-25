@@ -222,7 +222,7 @@ export default function Home({navigation}) {
         placeholder="descrição"
         onChangeText={value => setDescription(value)}
       />
-      <Button title="Executar" color="#1eb900" onPress={setData} />
+      <Button title="Adicionar livro" color="#023E8A" onPress={setData} />
     </View>
     // </KeyboardAvoidingView>
   );

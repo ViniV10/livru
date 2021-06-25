@@ -11,8 +11,10 @@ import {useNavigation} from '@react-navigation/native';
 import RenderizarLivros from './informaçõesDosLivros/informaçõesDosLivros';
 
 export default function (props, {item}) {
-  const [carregando, setCarregando] = useState(true);
+  //dados = dados dos itens pesquisados
   const [dados, setDados] = useState([]);
+
+  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
     fetch(

@@ -71,21 +71,21 @@ export default function FabButton(props) {
     <View style={[style.container, props.style]}>
       <TouchableWithoutFeedback onPress={navegarTelaAdicionarLivros}>
         <Animated.View style={[style.button, style.submenu, bookPlus]}>
-          <MaterialCommunityIcons name="book-plus" size={24} color="#90E0EF" />
+          <MaterialCommunityIcons name="book-plus" size={27} color="#90E0EF" />
         </Animated.View>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={navegarTelaBuscarLivros}>
         <Animated.View style={[style.button, style.submenu, bookSearch]}>
           <MaterialCommunityIcons
             name="book-search"
-            size={24}
+            size={27}
             color="#90E0EF"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={toggleMenu}>
         <Animated.View style={[style.button, style.menu, rotation]}>
-          <MaterialCommunityIcons name="plus" size={30} color="#E5E5E5" />
+          <MaterialCommunityIcons name="plus" size={36} color="#E5E5E5" />
         </Animated.View>
       </TouchableWithoutFeedback>
     </View>
