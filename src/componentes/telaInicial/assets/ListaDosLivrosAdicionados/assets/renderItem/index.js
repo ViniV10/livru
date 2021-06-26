@@ -1,47 +1,48 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, Keyboard} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
 import style from './style';
+import SQLite from 'react-native-sqlite-storage';
 
-function renderizarLivros({item, _id, onItemClick}) {
+const db = SQLite.openDatabase(
+  {
+    name: 'Principal',
+    location: 'default',
+  },
+  () => {},
+  error => {
+    console.log(error);
+  },
+);
+
+function renderizarLivros({item, _id, onItemClick, onDelete}) {
+  const alerta = () => {
+    Alert.alert('Confirmação', 'Deseja remover o livro da biblioteca?', [
+      {text: 'CANCELAR', onPress: ''},
+      {text: 'SIM', onPress: () => removeData()},
+    ]);
+  };
+
+  const removeData = async () => {
+    try {
+      db.transaction(tx => {
+        tx.executeSql(
+          'DELETE FROM Livros WHERE id = ?',
+          [item.id],
+          onDelete(),
+          error => {
+            console.log(error);
+          },
+        );
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    // <TouchableOpacity
-    //   onPress={() => onItemClick(_id)}
-    //   // onPressIn={Keyboard.dismiss}
-    // >
-    //   <View>
-    //     <View style={{flexDirection: 'row'}}>
-    //       {item.thumbnail ? (
-    //         <Image
-    //           source={{uri: item.thumbnail}}
-    //           style={{width: 50, height: 50, resizeMode: 'contain'}}
-    //         />
-    //       ) : (
-    //         <Image
-    //           source={require('../../../../../TelaPesquisaLivros/assets/images/semImagem.png')}
-    //           style={{width: 50, height: 50, resizeMode: 'contain'}}
-    //         />
-    //       )}
-    //       <Text style={{margin: 15, marginBottom: 5}} numberOfLines={1}>
-    //         {' '}
-    //         {item.title}{' '}
-    //       </Text>
-    //       <Text style={{margin: 15, marginBottom: 5}}> {item.authors} </Text>
-    //       <Text style={{margin: 15, marginBottom: 5}}> {item.pages} </Text>
-    //     </View>
-
-    //     {/* Linha divisória */}
-    //     <View
-    //       style={{
-    //         borderBottomColor: '#023E8A',
-    //         borderBottomWidth: 2,
-    //       }}
-    //     />
-    //   </View>
-    // </TouchableOpacity>
     <TouchableOpacity
       onPress={() => onItemClick(_id)}
-      // onPressIn={Keyboard.dismiss}
-    >
+      onLongPress={() => alerta()}>
       <View style={style.container}>
         <View>
           {item.thumbnail ? (

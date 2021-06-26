@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableHighlight,
   Alert,
+  SafeAreaView,
 } from 'react-native';
 import estilos from './style';
 import SQLite from 'react-native-sqlite-storage';
@@ -22,7 +23,7 @@ const db = SQLite.openDatabase(
   },
 );
 
-function LivroExpandido({route, item}) {
+function LivroBiblioteca({route, item}) {
   const dados = route.params.item;
 
   const id = dados.id;
@@ -32,25 +33,11 @@ function LivroExpandido({route, item}) {
   const pages = dados.pages ? dados.pages : undefined;
   const description = dados.description ? dados.description : undefined;
   const title = dados.title ? dados.title : undefined;
-
-  const [autores, setAutores] = useState('');
-
-  useEffect(() => {
-    setAuthors();
-  }, []);
-
-  const setAuthors = () => {
-    var temp = [];
-    if (dados.authors != undefined && dados.authors.length > 0) {
-      for (let i = 0; i < dados.authors.length; ++i) {
-        temp += dados.authors[i];
-        if (i < dados.authors.length - 1) {
-          temp += ', ';
-        }
-      }
-      setAutores(temp);
-    }
-  };
+  const googleId = dados.googleId ? dados.googleId : undefined;
+  const language = dados.language ? dados.language : undefined;
+  const publisher = dados.publisher ? dados.publisher : undefined;
+  const categories = dados.categories ? dados.categories : undefined;
+  const read = dados.read ? dados.read : undefined;
 
   //   const alerta = () => {
   //     Alert.alert('Confirmação', 'Deseja adicionar o livro à biblioteca?', [
@@ -96,9 +83,9 @@ function LivroExpandido({route, item}) {
               source={{uri: thumbnail}}
               style={estilos.background}
               blurRadius={5}>
-              <Text numberOfLines={1} style={estilos.titulo}>
+              {/* <Text numberOfLines={1} style={estilos.titulo}>
                 {title}
-              </Text>
+              </Text> */}
             </ImageBackground>
           ) : (
             <ImageBackground
@@ -130,29 +117,40 @@ function LivroExpandido({route, item}) {
       <ScrollView>
         <View style={estilos.containerInfo}>
           <View style={estilos.texto}>
-            <Text style={{color: '#023E8A'}}> Autoria </Text>
-            <Text
-              numberOfLines={1}
-              style={({width: 80}, estilos.textoPrincipal)}>
-              {authors !== undefined ? authors : '        -'}
+            <Text style={estilos.titulo}>
+              {title !== undefined ? title : '        -'}
+              {title > 0 ? '...' : ''}
+            </Text>
+          </View>
+          <View style={estilos.texto}>
+            <Text style={{color: '#023E8A'}}> Autoria: </Text>
+            <Text numberOfLines={1} style={estilos.textoPrincipal}>
+              {authors !== undefined ? authors : '-'}
               {authors > 0 ? '...' : ''}
             </Text>
           </View>
-
           <View style={estilos.texto}>
-            <Text style={{color: '#023E8A'}}>Páginas </Text>
+            <Text style={{color: '#023E8A'}}> Editora: </Text>
             <Text numberOfLines={1} style={estilos.textoPrincipal}>
-              {pages !== undefined ? `     ${pages}` : '        -'}
+              {publisher !== undefined ? publisher : '-'}
+              {publisher > 0 ? '...' : ''}
             </Text>
           </View>
 
-          <View style={estilos.texto}>
-            <Text style={{color: '#023E8A'}}>Linguagem </Text>
-            {/* <Text numberOfLines={1} style={estilos.textoPrincipal}>
-              {volumeInfo.language !== 'un'
-                ? `      ${volumeInfo.language}`
-                : '        -'}
-            </Text> */}
+          <View style={{flexDirection: 'row', marginLeft: 3}}>
+            <View style={estilos.texto}>
+              <Text style={{color: '#023E8A'}}>Páginas: </Text>
+              <Text numberOfLines={1} style={estilos.textoPrincipal}>
+                {pages !== undefined ? `${pages}          ` : '-'}
+              </Text>
+            </View>
+
+            <View style={estilos.texto}>
+              <Text style={{color: '#023E8A'}}>Linguagem: </Text>
+              <Text numberOfLines={1} style={estilos.textoPrincipal}>
+                {language !== 'un' ? `${language}` : '-'}
+              </Text>
+            </View>
           </View>
         </View>
 
@@ -175,11 +173,19 @@ function LivroExpandido({route, item}) {
   }
 
   return (
-    <View style={{flex: 1}}>
-      <View style={{flex: 2}}>{ParteImagem()}</View>
-      <View style={{flex: 2}}>{ParteInfo()}</View>
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <View style={{flex: 3}}>{ParteImagem()}</View>
+      <View
+        style={{
+          flex: 5,
+          borderColor: '#023E8A',
+          borderWidth: 3,
+          borderBottomWidth: 0,
+        }}>
+        {ParteInfo()}
+      </View>
+    </SafeAreaView>
   );
 }
 
-export default LivroExpandido;
+export default LivroBiblioteca;

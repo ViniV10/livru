@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     padding: 10,
-    margin: 10,
     flex: 1,
   },
   containerImagem: {
@@ -12,7 +11,7 @@ export default StyleSheet.create({
   imagem: {
     flex: 1,
     width: 130,
-    marginBottom: 50,
+    marginBottom: 10,
     height: 'auto',
     resizeMode: 'contain',
     padding: 5,
@@ -31,35 +30,34 @@ export default StyleSheet.create({
   },
   containerInfo: {
     margin: 1,
-    alignSelf: 'center',
-    flexDirection: 'row',
+    alignSelf: 'flex-start',
+    flexDirection: 'column',
+    borderBottomLeftRadius: 5,
   },
   texto: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     margin: 0,
-    padding: 10,
+    padding: 5,
     alignItems: 'center',
   },
   textoPrincipal: {
-    fontSize: 16,
+    fontSize: 15,
     margin: 5,
-    width: 75,
+    marginRight: 50,
+    // width: 75,
     alignSelf: 'center',
     color: '#023E8A',
   },
   titulo: {
-    fontSize: 20,
+    fontSize: 18,
     margin: 5,
-    padding: 5,
-    backgroundColor: '#E5E5E5',
+    padding: 0,
     borderRadius: 5,
     color: '#023E8A',
-    alignSelf: 'flex-end',
-    alignItems: 'center',
   },
   descrição: {
     fontSize: 16,
-    margin: 10,
+    margin: 12,
     marginBottom: 10,
   },
 });

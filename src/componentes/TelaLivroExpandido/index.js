@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import estilos from './style';
 import SQLite from 'react-native-sqlite-storage';
+import {useNavigation} from '@react-navigation/native';
 
 const db = SQLite.openDatabase(
   {
@@ -22,7 +23,7 @@ const db = SQLite.openDatabase(
   },
 );
 
-function LivroExpandido({route, item}) {
+function LivroExpandido({route, item, navigation}) {
   const dados = route.params.item;
   const [autores, setAutores] = useState('');
 
@@ -32,7 +33,10 @@ function LivroExpandido({route, item}) {
 
   const setAuthors = () => {
     var temp = [];
-    if (dados.volumeInfo.authors.length > 0) {
+    if (
+      dados.volumeInfo.authors != undefined &&
+      dados.volumeInfo.authors.length > 0
+    ) {
       for (let i = 0; i < dados.volumeInfo.authors.length; ++i) {
         temp += dados.volumeInfo.authors[i];
         if (i < dados.volumeInfo.authors.length - 1) {
@@ -54,21 +58,39 @@ function LivroExpandido({route, item}) {
     try {
       await db.transaction(async tx => {
         await tx.executeSql(
-          'INSERT INTO Livros (id, thumbnail, authors, publishedDate, pages, description, title) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          'INSERT INTO Livros (thumbnail, authors, publishedDate, pages, description, title, googleId, language, publisher, categories) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
           [
-            dados.id,
             dados.volumeInfo.imageLinks
               ? dados.volumeInfo.imageLinks.thumbnail
               : '',
+
             autores,
+
             dados.volumeInfo.publishedDate !== undefined
               ? dados.volumeInfo.publishedDate
               : '',
-            dados.volumeInfo.pageCount,
+
+            dados.volumeInfo.pageCount ? dados.volumeInfo.pageCount : '',
+
             dados.volumeInfo.description !== undefined
               ? dados.volumeInfo.description
               : '',
+
             dados.volumeInfo.title,
+
+            dados.id,
+
+            dados.volumeInfo.language !== undefined
+              ? dados.volumeInfo.language
+              : '',
+
+            dados.volumeInfo.publisher !== undefined
+              ? dados.volumeInfo.publisher
+              : '',
+
+            dados.volumeInfo.categories !== undefined
+              ? dados.volumeInfo.categories[0]
+              : '',
           ],
         );
       });

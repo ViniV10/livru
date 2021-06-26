@@ -26,6 +26,18 @@ export default function teste({navigation}) {
 
   const {navigate} = useNavigation();
 
+  const [loading, setLoading] = useState(false);
+
+  const onRefresh = () => {
+    setLoading(true);
+    fetchData();
+  };
+
+  const fetchData = () => {
+    getData();
+    setLoading(false);
+  };
+
   useEffect(() => {
     getData();
   }, [isFocused]);
@@ -55,26 +67,6 @@ export default function teste({navigation}) {
       console.log(error);
     }
   };
-
-  const setData = async () => {
-    if (title.length == 0 || id.length == 0) {
-      Alert.alert('Warning!', 'Please write the data.');
-    } else {
-      try {
-        await db.transaction(async tx => {
-          await tx.executeSql(
-            'INSERT INTO Livros (id, thumbnail, authors, publishedDate, pages, description, title) VALUES (?, ?, ?, ?, ?, ?, ?)'[
-              (id, thumbnail, authors, publishedDate, pages, description, title)
-            ],
-          );
-        });
-        navigate.navigate('Home');
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <View>
@@ -84,12 +76,14 @@ export default function teste({navigation}) {
           <FlatList
             extraData={dados}
             data={dados}
+            onRefresh={onRefresh}
+            refreshing={loading}
             keyExtractor={(item, index) => index}
-            // passar renderItem para um arquivo separado
             renderItem={({item}) => (
               <RenderizarLivros
                 item={item}
                 onItemClick={navigate.bind(this, 'LivroBiblioteca', {item})}
+                onDelete={onRefresh.bind()}
               />
             )}
           />
