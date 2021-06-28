@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
 import style from './style';
 import SQLite from 'react-native-sqlite-storage';
@@ -15,6 +15,23 @@ const db = SQLite.openDatabase(
 );
 
 function renderizarLivros({item, _id, onItemClick, onDelete}) {
+  useEffect(() => {
+    createTable();
+  }, []);
+
+  const createTable = async () => {
+    try {
+      await db.transaction(async tx => {
+        await tx.executeSql(
+          'CREATE TABLE IF NOT EXISTS Notas (id INTEGER PRIMARY KEY AUTOINCREMENT, bookId	INTEGER, title TEXT, description TEXT, priority INTEGER)',
+          [],
+        );
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const alerta = () => {
     Alert.alert('Confirmação', 'Deseja remover o livro da biblioteca?', [
       {text: 'CANCELAR', onPress: ''},

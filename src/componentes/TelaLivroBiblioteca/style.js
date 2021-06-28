@@ -50,6 +50,7 @@ export default StyleSheet.create({
   },
   titulo: {
     fontSize: 18,
+    width: 330,
     margin: 5,
     padding: 0,
     borderRadius: 5,

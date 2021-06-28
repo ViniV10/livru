@@ -2,14 +2,52 @@ import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import BuscarLivros from './src/componentes/TelaPesquisaLivros/index';
 import Home from './src/componentes/TelaInicial/index';
 import LivroExpandido from './src/componentes/TelaLivroExpandido/index';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AdicionarLivros from './src/componentes/TelaAdicionarLivros/index';
 import LivroBiblioteca from './src/componentes/TelaLivroBiblioteca/index';
+import NotaLivro from './src/componentes/TelaNotas';
+import AdicionarNotas from './src/componentes/TelaAdicionarNotas/index';
 
 const Pilha = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function Tabs({route}) {
+  return (
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: '#023E8A',
+        inactiveTintColor: '#000',
+        activeBackgroundColor: '#aaa',
+        inactiveBackgroundColor: '#E5E5E5',
+      }}>
+      <Tab.Screen
+        name="Detalhes do livro"
+        component={LivroBiblioteca}
+        initialParams={route.params}
+        options={{
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="home" color={'#90E0EF'} size={27} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="Notas"
+        component={NotaLivro}
+        initialParams={route.params}
+        options={{
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="book" color={'#90E0EF'} size={27} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 export default function () {
   return (
@@ -69,9 +107,20 @@ export default function () {
         />
         <Pilha.Screen
           name="LivroBiblioteca"
-          component={LivroBiblioteca}
+          component={Tabs}
           options={({route}) => ({
             title: route.params.item.title,
+            headerTintColor: '#023E8A',
+            headerStyle: {
+              backgroundColor: '#E5E5E5',
+            },
+          })}
+        />
+        <Pilha.Screen
+          name="AdicionarNotas"
+          component={AdicionarNotas}
+          options={() => ({
+            title: 'Adicionar nota',
             headerTintColor: '#023E8A',
             headerStyle: {
               backgroundColor: '#E5E5E5',
