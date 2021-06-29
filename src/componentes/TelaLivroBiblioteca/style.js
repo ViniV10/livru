@@ -50,7 +50,7 @@ export default StyleSheet.create({
   },
   titulo: {
     fontSize: 18,
-    width: 330,
+    width: 320,
     margin: 5,
     padding: 0,
     borderRadius: 5,
@@ -60,5 +60,10 @@ export default StyleSheet.create({
     fontSize: 16,
     margin: 12,
     marginBottom: 10,
+  },
+  botão: {
+    position: 'absolute',
+    margin: 20,
+    marginLeft: 320,
   },
 });

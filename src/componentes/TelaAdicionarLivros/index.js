@@ -141,7 +141,7 @@ export default function Home({navigation}) {
         <TextInput
           style={style.textInput}
           value={publishedDate}
-          placeholder="data de publicação (mm/aaaa)"
+          placeholder="data de publicação"
           maxLength={7}
           keyboardType="numeric"
           onChangeText={text => {

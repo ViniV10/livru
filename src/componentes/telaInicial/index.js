@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {View, TextInput} from 'react-native';
 import FabButton from './assets/FabButton/index';
 import SQLite from 'react-native-sqlite-storage';
 import ListaLivros from '../TelaInicial/assets/ListaDosLivrosAdicionados/index';

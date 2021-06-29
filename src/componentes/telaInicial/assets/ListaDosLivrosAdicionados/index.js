@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, View, FlatList, Text, SafeAreaView, Image} from 'react-native';
+import {
+  Alert,
+  View,
+  FlatList,
+  Text,
+  SafeAreaView,
+  TextInput,
+} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
@@ -19,6 +26,10 @@ const db = SQLite.openDatabase(
 export default function teste({navigation}) {
   //dados = dados dos livros adicionados à biblioteca
   const [dados, setDados] = useState([]);
+
+  const [dadosFiltrados, setDadosFiltrados] = useState([]);
+
+  const [pesquisa, setPesquisa] = useState('');
 
   const [vazio, setVazio] = useState([]);
 
@@ -46,13 +57,14 @@ export default function teste({navigation}) {
     try {
       db.transaction(tx => {
         tx.executeSql(
-          'SELECT * FROM Livros ORDER BY title ASC ',
+          'SELECT * FROM Livros ORDER BY title COLLATE NOCASE ASC ',
           [],
           (tx, results) => {
             var temp = [];
             for (let i = 0; i < results.rows.length; ++i)
               temp.push(results.rows.item(i));
             setDados(temp);
+            setDadosFiltrados(temp);
 
             if (results.rows.length >= 1) {
               setVazio(false);
@@ -67,15 +79,49 @@ export default function teste({navigation}) {
       console.log(error);
     }
   };
+
+  const pesquisar = text => {
+    if (text) {
+      const newData = dados.filter(item => {
+        const itemData = item.title
+          ? item.title.toUpperCase()
+          : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setDadosFiltrados(newData);
+      setPesquisa(text);
+    } else {
+      setDadosFiltrados(dados);
+      setPesquisa(text);
+    }
+  };
+
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{marginBottom: 108}}>
+      <TextInput
+        style={{
+          alignSelf: 'center',
+          display: 'flex',
+          margin: '2%',
+          width: '90%',
+          height: 40,
+          backgroundColor: '#ccc',
+          borderRadius: 10,
+          padding: 10,
+        }}
+        placeholder="Pesquisar"
+        placeholderTextColor="#7286A0"
+        value={pesquisa}
+        // onKeyPress={() => setPesquisa(true)}
+        onChangeText={text => pesquisar(text)}
+      />
       <View>
         {vazio ? (
           <Text> Adicione livros a sua biblioteca!</Text>
         ) : (
           <FlatList
-            extraData={dados}
-            data={dados}
+            data={dadosFiltrados}
             onRefresh={onRefresh}
             refreshing={loading}
             keyExtractor={(item, index) => index}

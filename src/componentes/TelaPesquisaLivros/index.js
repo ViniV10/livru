@@ -17,7 +17,7 @@ export default function pesquisaLivros() {
       <View style={style.containerPesquisa}>
         <TextInput
           style={style.textInput}
-          placeholder="Digite o nome do livro"
+          placeholder="Pesquise por livros!"
           placeholderTextColor="#7286A0"
           value={nome}
           onKeyPress={() => setPesquisa(true)}

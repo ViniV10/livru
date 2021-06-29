@@ -45,48 +45,6 @@ export default function EditarNota({route, navigation, _id, onItemClick}) {
     }
   };
 
-  //   const updateData = async () => {
-  //     if (title.length == 0 || id.length == 0) {
-  //       Alert.alert('Warning!', 'Please write the data.');
-  //     } else {
-  //       try {
-  //         db.transaction(async tx => {
-  //           tx.executeSql(
-  //             'UPDATE Livros SET title=?',
-  //             [title],
-  //             () => {
-  //               Alert.alert('Success!', 'O título foi alterado');
-  //             },
-  //             error => {
-  //               console.log(error);
-  //             },
-  //           );
-  //         });
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //   };
-
-  //   const removeData = async () => {
-  //     try {
-  //       db.transaction(tx => {
-  //         tx.executeSql(
-  //           'DELETE FROM Livros',
-  //           [],
-  //           () => {
-  //             navigation.navigate('Home');
-  //           },
-  //           error => {
-  //             console.log(error);
-  //           },
-  //         );
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
   return (
     <ScrollView style={{flex: 1, backgroundColor: '#E5E5E5', padding: 10}}>
       <TextInput

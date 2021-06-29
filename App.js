@@ -12,6 +12,7 @@ import LivroBiblioteca from './src/componentes/TelaLivroBiblioteca/index';
 import NotaLivro from './src/componentes/TelaNotas';
 import AdicionarNotas from './src/componentes/TelaAdicionarNotas/index';
 import EditarNota from './src/componentes/TelaEditarNota';
+import EditarLivro from './src/componentes/TelaEditarLivro';
 
 const Pilha = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -75,7 +76,7 @@ export default function () {
               backgroundColor: '#E5E5E5',
             },
             headerRight: () => (
-              <TouchableOpacity onPress={() => alert('search')}>
+              <TouchableOpacity onPress={() => alert('filter')}>
                 <View
                   style={{
                     alignItems: 'center',
@@ -86,7 +87,7 @@ export default function () {
                     marginRight: 5,
                   }}>
                   <MaterialCommunityIcons
-                    name="magnify"
+                    name="filter"
                     size={28}
                     color="#023E8A"
                   />
@@ -133,6 +134,17 @@ export default function () {
           component={EditarNota}
           options={() => ({
             title: 'Editar nota',
+            headerTintColor: '#023E8A',
+            headerStyle: {
+              backgroundColor: '#E5E5E5',
+            },
+          })}
+        />
+        <Pilha.Screen
+          name="EditarLivro"
+          component={EditarLivro}
+          options={() => ({
+            title: 'Editar livro',
             headerTintColor: '#023E8A',
             headerStyle: {
               backgroundColor: '#E5E5E5',
