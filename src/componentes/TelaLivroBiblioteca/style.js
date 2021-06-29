@@ -29,7 +29,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   containerInfo: {
-    margin: 1,
+    margin: 2,
     alignSelf: 'flex-start',
     flexDirection: 'column',
     borderBottomLeftRadius: 5,
@@ -37,7 +37,7 @@ export default StyleSheet.create({
   texto: {
     flexDirection: 'row',
     margin: 0,
-    padding: 5,
+    padding: 3,
     alignItems: 'center',
   },
   textoPrincipal: {

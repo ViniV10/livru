@@ -4,13 +4,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import BuscarLivros from './src/componentes/TelaPesquisaLivros/index';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Home from './src/componentes/TelaInicial/index';
 import LivroExpandido from './src/componentes/TelaLivroExpandido/index';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AdicionarLivros from './src/componentes/TelaAdicionarLivros/index';
 import LivroBiblioteca from './src/componentes/TelaLivroBiblioteca/index';
 import NotaLivro from './src/componentes/TelaNotas';
 import AdicionarNotas from './src/componentes/TelaAdicionarNotas/index';
+import EditarNota from './src/componentes/TelaEditarNota';
 
 const Pilha = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,7 +31,7 @@ function Tabs({route}) {
         initialParams={route.params}
         options={{
           tabBarIcon: () => (
-            <MaterialCommunityIcons name="home" color={'#90E0EF'} size={27} />
+            <MaterialCommunityIcons name="home" color={'#023E8A'} size={27} />
           ),
         }}
       />
@@ -41,7 +42,7 @@ function Tabs({route}) {
         initialParams={route.params}
         options={{
           tabBarIcon: () => (
-            <MaterialCommunityIcons name="book" color={'#90E0EF'} size={27} />
+            <MaterialCommunityIcons name="book" color={'#023E8A'} size={27} />
           ),
         }}
       />
@@ -74,7 +75,7 @@ export default function () {
               backgroundColor: '#E5E5E5',
             },
             headerRight: () => (
-              <TouchableOpacity onPress={() => alert('config')}>
+              <TouchableOpacity onPress={() => alert('search')}>
                 <View
                   style={{
                     alignItems: 'center',
@@ -85,7 +86,7 @@ export default function () {
                     marginRight: 5,
                   }}>
                   <MaterialCommunityIcons
-                    name="cog"
+                    name="magnify"
                     size={28}
                     color="#023E8A"
                   />
@@ -121,6 +122,17 @@ export default function () {
           component={AdicionarNotas}
           options={() => ({
             title: 'Adicionar nota',
+            headerTintColor: '#023E8A',
+            headerStyle: {
+              backgroundColor: '#E5E5E5',
+            },
+          })}
+        />
+        <Pilha.Screen
+          name="EditarNota"
+          component={EditarNota}
+          options={() => ({
+            title: 'Editar nota',
             headerTintColor: '#023E8A',
             headerStyle: {
               backgroundColor: '#E5E5E5',

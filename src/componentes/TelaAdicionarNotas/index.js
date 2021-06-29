@@ -43,24 +43,30 @@ function AdicionarNotas({navigation, route}) {
       <TextInput
         style={{
           backgroundColor: '#90E0EF',
+          fontSize: 15,
           borderRadius: 10,
           margin: 10,
           padding: 10,
+          height: 100,
         }}
+        multiline
         placeholder="título"
         onChangeText={value => setTitle(value)}
       />
       <TextInput
         style={{
           backgroundColor: '#90E0EF',
+          fontSize: 15,
           borderRadius: 10,
           margin: 10,
           padding: 10,
+          height: 200,
         }}
+        multiline
         placeholder="texto"
         onChangeText={value => setDescription(value)}
       />
-      <Button title="Pronto" color="#023E8A" onPress={setData} />
+      <Button title="Adicionar nota" color="#023E8A" onPress={setData} />
     </View>
   );
 }

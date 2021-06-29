@@ -82,20 +82,12 @@ function LivroBiblioteca({route, item}) {
             <ImageBackground
               source={{uri: thumbnail}}
               style={estilos.background}
-              blurRadius={5}>
-              {/* <Text numberOfLines={1} style={estilos.titulo}>
-                {title}
-              </Text> */}
-            </ImageBackground>
+              blurRadius={5}></ImageBackground>
           ) : (
             <ImageBackground
               style={({flex: 1}, estilos.background)}
               source={require('../TelaPesquisaLivros/assets/images/semImagem.png')}
-              blurRadius={10}>
-              <Text numberOfLines={1} style={estilos.titulo}>
-                {title}
-              </Text>
-            </ImageBackground>
+              blurRadius={10}></ImageBackground>
           )}
 
           <View style={{flex: 5, paddingTop: 10, alignItems: 'center'}}>
