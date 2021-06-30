@@ -3,10 +3,14 @@ import {
   Alert,
   View,
   ScrollView,
+  Image,
   TextInput,
   Button,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ImagePicker from 'react-native-image-crop-picker';
 import SQLite from 'react-native-sqlite-storage';
 import style from './style';
 
@@ -124,14 +128,57 @@ export default function Home({navigation}) {
   //   }
   // };
 
+  const alerta = () => {
+    Alert.alert(
+      'Adicionar capa do livro',
+      'Como você deseja adicionar a foto?',
+      [
+        {text: 'Usar câmera', onPress: () => fotoCamera()},
+        {text: 'Escolher da galeria', onPress: () => fotoGaleria()},
+      ],
+      {cancelable: true},
+    );
+  };
+
+  const fotoCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      setThumbnail(image.path);
+    });
+  };
+
+  const fotoGaleria = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      setThumbnail(image.path);
+    });
+  };
+
   return (
-    // <KeyboardAvoidingView behavior={'position'}>
     <ScrollView style={{flex: 1, backgroundColor: '#E5E5E5', padding: 10}}>
-      <TextInput
-        style={style.textInput}
-        placeholder="nome do livro"
-        onChangeText={value => setTitle(value)}
-      />
+      <View style={{flexDirection: 'row'}}>
+        <TextInput
+          style={style.textInput}
+          placeholder="nome do livro"
+          onChangeText={value => setTitle(value)}
+        />
+        {thumbnail == undefined || thumbnail == '' ? (
+          <TouchableOpacity style={style.botãoSemFoto} onPress={() => alerta()}>
+            <MaterialCommunityIcons name="image" color={'#90E0EF'} size={27} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => alerta()} style={style.botãoComFoto}>
+            <Image source={{uri: thumbnail}} style={style.foto} />
+          </TouchableOpacity>
+        )}
+      </View>
+
       <TextInput
         style={style.textInput}
         placeholder="autoria"
@@ -181,8 +228,8 @@ export default function Home({navigation}) {
         placeholder="descrição"
         onChangeText={value => setDescription(value)}
       />
+
       <Button title="Adicionar livro" color="#023E8A" onPress={setData} />
     </ScrollView>
-    // </KeyboardAvoidingView>
   );
 }

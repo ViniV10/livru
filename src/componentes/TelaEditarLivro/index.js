@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {
-  Alert,
+  Image,
   View,
   ScrollView,
   TextInput,
   Button,
-  KeyboardAvoidingView,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import ImagePicker from 'react-native-image-crop-picker';
 import style from './style';
 
 const db = SQLite.openDatabase(
@@ -66,6 +70,38 @@ export default function EditarLivro({route, navigation}) {
     }
   };
 
+  const alerta = () => {
+    Alert.alert(
+      'Editar capa do livro',
+      'Como você deseja adicionar a foto?',
+      [
+        {text: 'Usar câmera', onPress: () => fotoCamera()},
+        {text: 'Escolher da galeria', onPress: () => fotoGaleria()},
+      ],
+      {cancelable: true},
+    );
+  };
+
+  const fotoCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      setThumbnail(image.path);
+    });
+  };
+
+  const fotoGaleria = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      setThumbnail(image.path);
+    });
+  };
+
   return (
     <ScrollView
       style={{
@@ -73,12 +109,23 @@ export default function EditarLivro({route, navigation}) {
         backgroundColor: '#E5E5E5',
         padding: 10,
       }}>
-      <TextInput
-        style={style.textInput}
-        placeholder="nome do livro"
-        value={title}
-        onChangeText={value => setTitle(value)}
-      />
+      <View style={{flexDirection: 'row'}}>
+        <TextInput
+          style={style.textInput}
+          placeholder="nome do livro"
+          value={title}
+          onChangeText={value => setTitle(value)}
+        />
+        {thumbnail == undefined || thumbnail == '' ? (
+          <TouchableOpacity style={style.botãoSemFoto} onPress={() => alerta()}>
+            <MaterialCommunityIcons name="image" color={'#90E0EF'} size={27} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => alerta()} style={style.botãoComFoto}>
+            <Image source={{uri: thumbnail}} style={style.foto} />
+          </TouchableOpacity>
+        )}
+      </View>
       <TextInput
         style={style.textInput}
         placeholder="autoria"
