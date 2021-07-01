@@ -21,4 +21,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  totalNotas: {
+    fontSize: 14,
+    color: '#000',
+    fontWeight: 'bold',
+    margin: 10,
+  },
 });

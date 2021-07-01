@@ -8,7 +8,7 @@ import {
   TouchableHighlight,
   Image,
   ImageBackground,
-  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
@@ -131,7 +131,36 @@ function NotaLivro({route, navigation}) {
   function ParteInfo() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        <View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Text style={estilos.totalNotas}>Total de notas: {dados.length}</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('AdicionarNotas', {livro})}
+            style={{
+              alignItems: 'center',
+              backgroundColor: '#023E8A',
+              height: 40,
+              width: '35%',
+              alignSelf: 'flex-end',
+              padding: 10,
+              borderRadius: 10,
+              margin: 10,
+              marginLeft: '27%',
+            }}>
+            <Text style={{color: '#E5E5E5'}}>Adicionar nota</Text>
+          </TouchableOpacity>
+        </View>
+        {/* Linha divisória */}
+        <View
+          style={{
+            borderBottomColor: '#023E8A',
+            borderBottomWidth: 2,
+          }}
+        />
+        <View style={{marginBottom: 60}}>
           {vazio ? (
             <Text style={{margin: 15}}> Adicione notas!</Text>
           ) : (
@@ -151,15 +180,6 @@ function NotaLivro({route, navigation}) {
             />
           )}
         </View>
-        <Button
-          title="Adicionar nota"
-          color="#023E8A"
-          onPress={() => navigation.navigate('AdicionarNotas', {livro})}
-        />
-        <TouchableHighlight
-          onPress={() => navigation.navigate('AdicionarNotas', {livro})}>
-          <Text> + </Text>
-        </TouchableHighlight>
       </SafeAreaView>
     );
   }

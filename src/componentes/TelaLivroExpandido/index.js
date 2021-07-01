@@ -6,11 +6,13 @@ import {
   ImageBackground,
   ScrollView,
   TouchableHighlight,
+  TouchableOpacity,
   Alert,
+  ToastAndroid,
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import estilos from './style';
 import SQLite from 'react-native-sqlite-storage';
-import {useNavigation} from '@react-navigation/native';
 
 const db = SQLite.openDatabase(
   {
@@ -26,6 +28,8 @@ const db = SQLite.openDatabase(
 function LivroExpandido({route, item, navigation}) {
   const dados = route.params.item;
   const [autores, setAutores] = useState('');
+
+  const [iconName, setIconName] = useState('plus');
 
   useEffect(() => {
     setAuthors();
@@ -53,6 +57,24 @@ function LivroExpandido({route, item, navigation}) {
       {text: 'SIM', onPress: () => setData()},
     ]);
   };
+
+  navigation.setOptions({
+    headerRight: () => (
+      <TouchableOpacity onPress={setData}>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 5,
+            width: 50,
+            height: 50,
+            marginRight: 5,
+          }}>
+          <MaterialCommunityIcons name={iconName} size={28} color="#023E8A" />
+        </View>
+      </TouchableOpacity>
+    ),
+  });
 
   const setData = async () => {
     try {
@@ -94,7 +116,8 @@ function LivroExpandido({route, item, navigation}) {
           ],
         );
       });
-      navigation.navigate('Home');
+      ToastAndroid.show('Livro adicionado', ToastAndroid.SHORT);
+      setIconName('check');
     } catch (error) {
       console.log(error);
     }

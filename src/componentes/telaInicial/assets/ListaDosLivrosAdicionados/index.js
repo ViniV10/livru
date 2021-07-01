@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {
   Alert,
   View,
@@ -7,10 +7,12 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
+import SearchBar from '../SearchBar';
 import SQLite from 'react-native-sqlite-storage';
 import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import RenderizarLivros from './assets/renderItem/index';
+import {useDebugValue} from 'react/cjs/react.production.min';
 
 const db = SQLite.openDatabase(
   {
@@ -23,7 +25,7 @@ const db = SQLite.openDatabase(
   },
 );
 
-export default function teste({navigation}) {
+export default function LivrosTelaInicial({navigation, SearchBar}) {
   //dados = dados dos livros adicionados à biblioteca
   const [dados, setDados] = useState([]);
 
@@ -39,6 +41,12 @@ export default function teste({navigation}) {
 
   const [loading, setLoading] = useState(false);
 
+  const [mostrarSearchBar, setMostrarSearchBar] = useState(SearchBar);
+  const [margem, setMargem] = useState(38);
+  useEffect(() => {
+    SearchBar ? setMargem(108) : setMargem(38);
+  }, [SearchBar]);
+
   const onRefresh = () => {
     setLoading(true);
     fetchData();
@@ -51,6 +59,7 @@ export default function teste({navigation}) {
 
   useEffect(() => {
     getData();
+    setPesquisa('');
   }, [isFocused]);
 
   const getData = () => {
@@ -98,25 +107,29 @@ export default function teste({navigation}) {
   };
 
   return (
-    <SafeAreaView style={{marginBottom: 108}}>
-      <TextInput
-        style={{
-          alignSelf: 'center',
-          display: 'flex',
-          margin: '2%',
-          width: '90%',
-          height: 40,
-          backgroundColor: '#ccc',
-          borderRadius: 10,
-          padding: 10,
-        }}
-        placeholder="Pesquisar"
-        placeholderTextColor="#7286A0"
-        value={pesquisa}
-        // onKeyPress={() => setPesquisa(true)}
-        onChangeText={text => pesquisar(text)}
-      />
-      <View>
+    <SafeAreaView>
+      {SearchBar ? (
+        <TextInput
+          autoFocus={true}
+          style={{
+            alignSelf: 'center',
+            display: 'flex',
+            margin: '2%',
+            width: '90%',
+            height: 40,
+            backgroundColor: '#ccc',
+            borderRadius: 10,
+            padding: 10,
+          }}
+          placeholder="Pesquisar"
+          placeholderTextColor="#7286A0"
+          value={pesquisa}
+          onChangeText={text => pesquisar(text)}
+        />
+      ) : (
+        <Text />
+      )}
+      <View style={{marginBottom: margem}}>
         {vazio ? (
           <Text> Adicione livros a sua biblioteca!</Text>
         ) : (

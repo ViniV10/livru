@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {View, TextInput, Button} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
 const db = SQLite.openDatabase(
@@ -31,6 +37,7 @@ function AdicionarNotas({navigation, route}) {
             [bookId, title, description, priority],
           );
         });
+        ToastAndroid.show('Nota adicionada', ToastAndroid.SHORT);
         navigation.goBack();
       } catch (error) {
         console.log(error);
@@ -66,7 +73,21 @@ function AdicionarNotas({navigation, route}) {
         placeholder="texto"
         onChangeText={value => setDescription(value)}
       />
-      <Button title="Adicionar nota" color="#023E8A" onPress={setData} />
+      <TouchableOpacity
+        onPress={setData}
+        style={{
+          backgroundColor: '#023E8A',
+          height: 40,
+          width: '90%',
+          alignItems: 'center',
+          alignSelf: 'center',
+          padding: 10,
+          borderRadius: 10,
+          margin: 10,
+          marginBottom: 20,
+        }}>
+        <Text style={{color: '#E5E5E5'}}>Pronto!</Text>
+      </TouchableOpacity>
     </View>
   );
 }

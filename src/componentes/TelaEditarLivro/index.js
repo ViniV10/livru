@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
-  Image,
   View,
   ScrollView,
   TextInput,
-  Button,
   TouchableOpacity,
-  Alert,
+  Text,
 } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import Alerta from '../TelaAdicionarLivros/assets/Alerta';
 import ImagePicker from 'react-native-image-crop-picker';
 import style from './style';
 
@@ -70,18 +68,6 @@ export default function EditarLivro({route, navigation}) {
     }
   };
 
-  const alerta = () => {
-    Alert.alert(
-      'Editar capa do livro',
-      'Como você deseja adicionar a foto?',
-      [
-        {text: 'Usar câmera', onPress: () => fotoCamera()},
-        {text: 'Escolher da galeria', onPress: () => fotoGaleria()},
-      ],
-      {cancelable: true},
-    );
-  };
-
   const fotoCamera = () => {
     ImagePicker.openCamera({
       width: 300,
@@ -109,22 +95,19 @@ export default function EditarLivro({route, navigation}) {
         backgroundColor: '#E5E5E5',
         padding: 10,
       }}>
-      <View style={{flexDirection: 'row'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+        }}>
         <TextInput
           style={style.textInput}
           placeholder="nome do livro"
           value={title}
           onChangeText={value => setTitle(value)}
         />
-        {thumbnail == undefined || thumbnail == '' ? (
-          <TouchableOpacity style={style.botãoSemFoto} onPress={() => alerta()}>
-            <MaterialCommunityIcons name="image" color={'#90E0EF'} size={27} />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={() => alerta()} style={style.botãoComFoto}>
-            <Image source={{uri: thumbnail}} style={style.foto} />
-          </TouchableOpacity>
-        )}
+        <View style={{marginTop: 10}}>
+          <Alerta thumbnail={thumbnail} />
+        </View>
       </View>
       <TextInput
         style={style.textInput}
@@ -184,8 +167,10 @@ export default function EditarLivro({route, navigation}) {
           onChangeText={value => setDescription(value)}
         />
       </View>
-      <Button title="Pronto!" color="#023E8A" onPress={updateData} />
-      <View style={{marginBottom: 30}} />
+
+      <TouchableOpacity onPress={updateData} style={style.button}>
+        <Text style={{color: '#E5E5E5'}}>Editar livro</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }

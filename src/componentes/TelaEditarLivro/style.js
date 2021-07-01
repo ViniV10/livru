@@ -8,27 +8,15 @@ export default StyleSheet.create({
     margin: 5,
     padding: 10,
   },
-  botãoSemFoto: {
+  button: {
     backgroundColor: '#023E8A',
+    height: 40,
+    width: '90%',
     alignItems: 'center',
     alignSelf: 'center',
-    justifyContent: 'center',
+    padding: 10,
     borderRadius: 10,
-    width: 45,
-    height: 45,
-    marginRight: 5,
-  },
-  botãoComFoto: {
-    alignItems: 'center',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: 45,
-    height: 45,
-    marginRight: 5,
-  },
-  foto: {
-    width: 55,
-    height: 50,
-    resizeMode: 'contain',
+    margin: 10,
+    marginBottom: 20,
   },
 });

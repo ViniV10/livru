@@ -3,16 +3,16 @@ import {
   Alert,
   View,
   ScrollView,
-  Image,
   TextInput,
   Button,
-  KeyboardAvoidingView,
+  Text,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
 import SQLite from 'react-native-sqlite-storage';
 import style from './style';
+import Alerta from './assets/Alerta/index';
 
 const db = SQLite.openDatabase(
   {
@@ -61,6 +61,7 @@ export default function Home({navigation}) {
           );
         });
         navigation.navigate('Home');
+        ToastAndroid.show('Livro adicionado', ToastAndroid.SHORT);
       } catch (error) {
         console.log(error);
       }
@@ -161,22 +162,20 @@ export default function Home({navigation}) {
   };
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor: '#E5E5E5', padding: 10}}>
-      <View style={{flexDirection: 'row'}}>
+    <ScrollView style={{flex: 1, backgroundColor: '#E5E5E5'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
         <TextInput
           style={style.textInput}
           placeholder="nome do livro"
           onChangeText={value => setTitle(value)}
         />
-        {thumbnail == undefined || thumbnail == '' ? (
-          <TouchableOpacity style={style.botãoSemFoto} onPress={() => alerta()}>
-            <MaterialCommunityIcons name="image" color={'#90E0EF'} size={27} />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={() => alerta()} style={style.botãoComFoto}>
-            <Image source={{uri: thumbnail}} style={style.foto} />
-          </TouchableOpacity>
-        )}
+        <View style={{marginTop: 10}}>
+          <Alerta thumbnail={thumbnail} />
+        </View>
       </View>
 
       <TextInput
@@ -229,7 +228,9 @@ export default function Home({navigation}) {
         onChangeText={value => setDescription(value)}
       />
 
-      <Button title="Adicionar livro" color="#023E8A" onPress={setData} />
+      <TouchableOpacity onPress={setData} style={style.button}>
+        <Text style={{color: '#E5E5E5'}}>Adicionar livro</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }

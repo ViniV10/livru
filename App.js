@@ -59,7 +59,7 @@ export default function () {
           name="AdicionarLivros"
           component={AdicionarLivros}
           options={{
-            title: 'Adicionar livros manualmente',
+            title: 'Adicionar livro',
             headerTintColor: '#023E8A',
             headerStyle: {
               backgroundColor: '#E5E5E5',
@@ -75,25 +75,6 @@ export default function () {
             headerStyle: {
               backgroundColor: '#E5E5E5',
             },
-            headerRight: () => (
-              <TouchableOpacity onPress={() => alert('filter')}>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 5,
-                    width: 40,
-                    height: 40,
-                    marginRight: 5,
-                  }}>
-                  <MaterialCommunityIcons
-                    name="filter"
-                    size={28}
-                    color="#023E8A"
-                  />
-                </View>
-              </TouchableOpacity>
-            ),
           }}
         />
         <Pilha.Screen
@@ -160,26 +141,6 @@ export default function () {
             headerStyle: {
               backgroundColor: '#E5E5E5',
             },
-            headerRight: () => (
-              <TouchableOpacity onPress={() => alert('This is a button!')}>
-                <View
-                  style={{
-                    backgroundColor: '#90E0EF',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 5,
-                    width: 40,
-                    height: 40,
-                    marginRight: 5,
-                  }}>
-                  <MaterialCommunityIcons
-                    name="plus"
-                    size={28}
-                    color="#023E8A"
-                  />
-                </View>
-              </TouchableOpacity>
-            ),
           }}
         />
       </Pilha.Navigator>

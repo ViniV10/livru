@@ -1,5 +1,12 @@
 import React, {useEffect} from 'react';
-import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Alert,
+  ToastAndroid,
+} from 'react-native';
 import style from './style';
 import SQLite from 'react-native-sqlite-storage';
 
@@ -49,6 +56,7 @@ function renderizarLivros({item, _id, onItemClick, onDelete}) {
           error => {
             console.log(error);
           },
+          ToastAndroid.show('Livro removido', ToastAndroid.SHORT),
         );
       });
     } catch (error) {
