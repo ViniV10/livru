@@ -1,18 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {
-  Alert,
+  Pressable,
   View,
   ScrollView,
   TextInput,
-  Button,
+  Modal,
   Text,
   TouchableOpacity,
   ToastAndroid,
+  Image,
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
 import SQLite from 'react-native-sqlite-storage';
 import style from './style';
-import Alerta from './assets/Alerta/index';
+// import Alerta from './assets/Alerta/index';
 
 const db = SQLite.openDatabase(
   {
@@ -68,48 +70,107 @@ export default function Home({navigation}) {
     }
   };
 
-  //   const updateData = async () => {
-  //     if (title.length == 0 || id.length == 0) {
-  //       Alert.alert('Warning!', 'Please write the data.');
-  //     } else {
-  //       try {
-  //         db.transaction(async tx => {
-  //           tx.executeSql(
-  //             'UPDATE Livros SET title=?',
-  //             [title],
-  //             () => {
-  //               Alert.alert('Success!', 'O título foi alterado');
-  //             },
-  //             error => {
-  //               console.log(error);
-  //             },
-  //           );
-  //         });
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //   };
+  const Alerta = () => {
+    const [modalVisible, setModalVisible] = useState(false);
 
-  //   const removeData = async () => {
-  //     try {
-  //       db.transaction(tx => {
-  //         tx.executeSql(
-  //           'DELETE FROM Livros',
-  //           [],
-  //           () => {
-  //             navigation.navigate('Home');
-  //           },
-  //           error => {
-  //             console.log(error);
-  //           },
-  //         );
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+    const fotoCamera = () => {
+      ImagePicker.openCamera({
+        width: 300,
+        height: 400,
+        cropping: true,
+      }).then(image => {
+        setThumbnail(image.path);
+        setModalVisible(!modalVisible);
+      });
+    };
 
+    const fotoGaleria = () => {
+      ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: true,
+      }).then(image => {
+        setThumbnail(image.path);
+        setModalVisible(!modalVisible);
+      });
+    };
+
+    const CaixaDeAlerta = () => {
+      return (
+        <View style={style.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={style.centeredView}>
+              <View style={style.modalView}>
+                <Text style={style.modalText}>
+                  Como você deseja adicionar a foto?
+                </Text>
+                <View style={style.buttonView}>
+                  <Pressable
+                    style={[style.button, style.buttonClose]}
+                    onPress={() => fotoCamera()}>
+                    <Text style={style.textStyle}>Câmera</Text>
+                    <MaterialCommunityIcons
+                      name="camera"
+                      color={'#90E0EF'}
+                      size={27}
+                    />
+                  </Pressable>
+
+                  <Pressable
+                    style={[style.button, style.buttonClose]}
+                    onPress={() => fotoGaleria()}>
+                    <Text style={style.textStyle}>Galeria</Text>
+                    <MaterialCommunityIcons
+                      name="image-multiple"
+                      color={'#90E0EF'}
+                      size={27}
+                    />
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      );
+    };
+
+    const BotãoImagem = () => {
+      return (
+        <View style={{marginTop: 0}}>
+          {thumbnail == undefined || thumbnail == '' ? (
+            <TouchableOpacity
+              style={style.botãoSemFoto}
+              onPress={() => setModalVisible(true)}>
+              <MaterialCommunityIcons
+                name="image"
+                color={'#90E0EF'}
+                size={27}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => setModalVisible(true)}
+              style={style.botãoComFoto}>
+              <Image source={{uri: thumbnail}} style={style.foto} />
+            </TouchableOpacity>
+          )}
+        </View>
+      );
+    };
+
+    return (
+      <View style={{marginTop: 10}}>
+        <BotãoImagem />
+        <CaixaDeAlerta />
+      </View>
+    );
+  };
   // const removeTable = async () => {
   //   try {
   //     db.transaction(tx => {
@@ -129,38 +190,6 @@ export default function Home({navigation}) {
   //   }
   // };
 
-  const alerta = () => {
-    Alert.alert(
-      'Adicionar capa do livro',
-      'Como você deseja adicionar a foto?',
-      [
-        {text: 'Usar câmera', onPress: () => fotoCamera()},
-        {text: 'Escolher da galeria', onPress: () => fotoGaleria()},
-      ],
-      {cancelable: true},
-    );
-  };
-
-  const fotoCamera = () => {
-    ImagePicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      setThumbnail(image.path);
-    });
-  };
-
-  const fotoGaleria = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      setThumbnail(image.path);
-    });
-  };
-
   return (
     <ScrollView style={{flex: 1, backgroundColor: '#E5E5E5'}}>
       <View
@@ -173,8 +202,9 @@ export default function Home({navigation}) {
           placeholder="nome do livro"
           onChangeText={value => setTitle(value)}
         />
+
         <View style={{marginTop: 10}}>
-          <Alerta thumbnail={thumbnail} />
+          <Alerta />
         </View>
       </View>
 
@@ -222,13 +252,16 @@ export default function Home({navigation}) {
           onChangeText={value => setLanguage(value)}
         />
       </View>
-      <TextInput
-        style={style.textInput}
-        placeholder="descrição"
-        onChangeText={value => setDescription(value)}
-      />
 
-      <TouchableOpacity onPress={setData} style={style.button}>
+      <View style={{height: 200}}>
+        <TextInput
+          style={style.textInput}
+          placeholder="descrição"
+          onChangeText={value => setDescription(value)}
+        />
+      </View>
+
+      <TouchableOpacity onPress={setData} style={style.buttonAdicionar}>
         <Text style={{color: '#E5E5E5'}}>Adicionar livro</Text>
       </TouchableOpacity>
     </ScrollView>

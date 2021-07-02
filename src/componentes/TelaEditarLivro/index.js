@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Modal,
+  Image,
+  Pressable,
   View,
   ScrollView,
   TextInput,
   TouchableOpacity,
   Text,
+  ToastAndroid,
 } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Alerta from '../TelaAdicionarLivros/assets/Alerta';
 import ImagePicker from 'react-native-image-crop-picker';
 import style from './style';
 
@@ -61,6 +64,7 @@ export default function EditarLivro({route, navigation}) {
             ],
           );
         });
+        ToastAndroid.show('Livro editado', ToastAndroid.SHORT);
         navigation.goBack();
       } catch (error) {
         console.log(error);
@@ -68,24 +72,106 @@ export default function EditarLivro({route, navigation}) {
     }
   };
 
-  const fotoCamera = () => {
-    ImagePicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      setThumbnail(image.path);
-    });
-  };
+  const Alerta = () => {
+    const [modalVisible, setModalVisible] = useState(false);
 
-  const fotoGaleria = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      setThumbnail(image.path);
-    });
+    const fotoCamera = () => {
+      ImagePicker.openCamera({
+        width: 300,
+        height: 400,
+        cropping: true,
+      }).then(image => {
+        setThumbnail(image.path);
+        setModalVisible(!modalVisible);
+      });
+    };
+
+    const fotoGaleria = () => {
+      ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: true,
+      }).then(image => {
+        setThumbnail(image.path);
+        setModalVisible(!modalVisible);
+      });
+    };
+
+    const CaixaDeAlerta = () => {
+      return (
+        <View style={style.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={style.centeredView}>
+              <View style={style.modalView}>
+                <Text style={style.modalText}>
+                  Como você deseja adicionar a foto?
+                </Text>
+                <View style={style.buttonView}>
+                  <Pressable
+                    style={[style.button, style.buttonClose]}
+                    onPress={() => fotoCamera()}>
+                    <Text style={style.textStyle}>Câmera</Text>
+                    <MaterialCommunityIcons
+                      name="camera"
+                      color={'#90E0EF'}
+                      size={27}
+                    />
+                  </Pressable>
+
+                  <Pressable
+                    style={[style.button, style.buttonClose]}
+                    onPress={() => fotoGaleria()}>
+                    <Text style={style.textStyle}>Galeria</Text>
+                    <MaterialCommunityIcons
+                      name="image-multiple"
+                      color={'#90E0EF'}
+                      size={27}
+                    />
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      );
+    };
+
+    const BotãoImagem = () => {
+      return (
+        <View style={{marginTop: 0}}>
+          {thumbnail == undefined || thumbnail == '' ? (
+            <TouchableOpacity
+              style={style.botãoSemFoto}
+              onPress={() => setModalVisible(true)}>
+              <MaterialCommunityIcons
+                name="image"
+                color={'#90E0EF'}
+                size={27}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => setModalVisible(true)}
+              style={style.botãoComFoto}>
+              <Image source={{uri: thumbnail}} style={style.foto} />
+            </TouchableOpacity>
+          )}
+        </View>
+      );
+    };
+
+    return (
+      <View style={{marginTop: 10}}>
+        <BotãoImagem />
+        <CaixaDeAlerta />
+      </View>
+    );
   };
 
   return (
@@ -168,7 +254,7 @@ export default function EditarLivro({route, navigation}) {
         />
       </View>
 
-      <TouchableOpacity onPress={updateData} style={style.button}>
+      <TouchableOpacity onPress={updateData} style={style.buttonAdicionar}>
         <Text style={{color: '#E5E5E5'}}>Editar livro</Text>
       </TouchableOpacity>
     </ScrollView>

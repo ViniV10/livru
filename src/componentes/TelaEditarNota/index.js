@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Alert,
-  View,
-  ScrollView,
-  TextInput,
-  Button,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {Text, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
 const db = SQLite.openDatabase(
@@ -20,7 +13,7 @@ const db = SQLite.openDatabase(
   },
 );
 
-export default function EditarNota({route, navigation, _id, onItemClick}) {
+export default function EditarNota({route, navigation}) {
   const dados = route.params.item;
 
   const [id, setId] = useState(dados.id);
@@ -71,7 +64,21 @@ export default function EditarNota({route, navigation, _id, onItemClick}) {
         placeholder="texto"
         onChangeText={value => setDescription(value)}
       />
-      <Button title="Pronto!" color="#023E8A" onPress={updateData} />
+      <TouchableOpacity
+        onPress={updateData}
+        style={{
+          backgroundColor: '#023E8A',
+          height: 40,
+          width: '90%',
+          alignItems: 'center',
+          alignSelf: 'center',
+          padding: 10,
+          borderRadius: 10,
+          margin: 10,
+          marginBottom: 20,
+        }}>
+        <Text style={{color: '#E5E5E5'}}>Pronto!</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }

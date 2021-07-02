@@ -7,12 +7,10 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
-import SearchBar from '../SearchBar';
 import SQLite from 'react-native-sqlite-storage';
 import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import RenderizarLivros from './assets/renderItem/index';
-import {useDebugValue} from 'react/cjs/react.production.min';
 
 const db = SQLite.openDatabase(
   {
