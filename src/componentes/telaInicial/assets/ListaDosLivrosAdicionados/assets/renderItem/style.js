@@ -38,4 +38,14 @@ export default StyleSheet.create({
     margin: 5,
     marginLeft: 7,
   },
+  delete: {
+    alignItems: 'center',
+    padding: 10,
+    justifyContent: 'center',
+    backgroundColor: '#023E8A',
+    borderRadius: 10,
+    marginTop: 8,
+    marginBottom: 5,
+    margin: 5,
+  },
 });

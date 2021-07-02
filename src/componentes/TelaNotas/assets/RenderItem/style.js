@@ -17,4 +17,14 @@ export default StyleSheet.create({
     margin: 20,
     marginLeft: 320,
   },
+  delete: {
+    alignItems: 'center',
+    padding: 10,
+    justifyContent: 'center',
+    backgroundColor: '#023E8A',
+    borderRadius: 10,
+    marginTop: 8,
+    marginBottom: 5,
+    margin: 5,
+  },
 });

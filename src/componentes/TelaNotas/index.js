@@ -174,7 +174,7 @@ function NotaLivro({route, navigation}) {
                 <RenderizarLivros
                   item={item}
                   onItemClick={navigate.bind(this, 'EditarNota', {item})}
-                  // onDelete={onRefresh.bind()}
+                  onDelete={onRefresh.bind()}
                 />
               )}
             />
