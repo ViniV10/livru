@@ -4,7 +4,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Keyboard,
+  ToastAndroid,
   Alert,
 } from 'react-native';
 import style from './style';
@@ -92,6 +92,7 @@ function renderizarLivros({item, _id, onItemClick}) {
           ],
         );
       });
+      ToastAndroid.show('Livro adicionado', ToastAndroid.SHORT);
     } catch (error) {
       console.log(error);
     }

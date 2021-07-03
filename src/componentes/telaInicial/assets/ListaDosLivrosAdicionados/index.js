@@ -1,12 +1,14 @@
-import React, {useEffect, useState, useLayoutEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Alert,
+  Switch,
   View,
   FlatList,
   Text,
   SafeAreaView,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SQLite from 'react-native-sqlite-storage';
 import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
@@ -39,32 +41,50 @@ export default function LivrosTelaInicial({navigation, SearchBar}) {
 
   const [loading, setLoading] = useState(false);
 
-  const [mostrarSearchBar, setMostrarSearchBar] = useState(SearchBar);
   const [margem, setMargem] = useState(38);
   useEffect(() => {
-    SearchBar ? setMargem(108) : setMargem(38);
+    SearchBar ? setMargem(158) : setMargem(38);
   }, [SearchBar]);
 
+  const [isSwitch, setIsSwitch] = useState(false);
+  const [ordem, setOrdem] = useState('title');
+  const [textoTextInput, setTextoTextInput] = useState(
+    'Pesquisar (por título)',
+  );
+
+  const toggleSwitch = () => {
+    isSwitch == true ? setOrdem('authors') : setOrdem('title');
+    setIsSwitch(previousState => !previousState);
+    isSwitch == true
+      ? setTextoTextInput('Pesquisar (por autor)')
+      : setTextoTextInput('Pesquisar (por título)');
+    pesquisar();
+    console.warn(isSwitch);
+  };
+
+  useEffect(() => {
+    setIsSwitch(!isSwitch);
+    onRefresh();
+  }, [isFocused]);
+
+  useEffect(() => {
+    onRefresh();
+  }, [isSwitch]);
+
   const onRefresh = () => {
-    setLoading(true);
     fetchData();
   };
 
   const fetchData = () => {
     getData();
-    setLoading(false);
   };
-
-  useEffect(() => {
-    getData();
-    setPesquisa('');
-  }, [isFocused]);
 
   const getData = () => {
     try {
+      setLoading(true);
       db.transaction(tx => {
         tx.executeSql(
-          'SELECT * FROM Livros ORDER BY title COLLATE NOCASE ASC ',
+          `SELECT * FROM Livros ORDER BY ${ordem} COLLATE NOCASE ASC `,
           [],
           (tx, results) => {
             var temp = [];
@@ -78,6 +98,7 @@ export default function LivrosTelaInicial({navigation, SearchBar}) {
             } else {
               setVazio(true);
             }
+            setLoading(false);
             navigation.navigate('Home');
           },
         );
@@ -88,7 +109,17 @@ export default function LivrosTelaInicial({navigation, SearchBar}) {
   };
 
   const pesquisar = text => {
-    if (text) {
+    if (text && !isSwitch) {
+      const newData = dados.filter(item => {
+        const itemData = item.authors
+          ? item.authors.toUpperCase()
+          : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setDadosFiltrados(newData);
+      setPesquisa(text);
+    } else if (text && isSwitch) {
       const newData = dados.filter(item => {
         const itemData = item.title
           ? item.title.toUpperCase()
@@ -107,23 +138,57 @@ export default function LivrosTelaInicial({navigation, SearchBar}) {
   return (
     <SafeAreaView>
       {SearchBar ? (
-        <TextInput
-          autoFocus={true}
-          style={{
-            alignSelf: 'center',
-            display: 'flex',
-            margin: '2%',
-            width: '90%',
-            height: 40,
-            backgroundColor: '#ccc',
-            borderRadius: 10,
-            padding: 10,
-          }}
-          placeholder="Pesquisar"
-          placeholderTextColor="#7286A0"
-          value={pesquisa}
-          onChangeText={text => pesquisar(text)}
-        />
+        <View>
+          <View style={{alignItems: 'center', flexDirection: 'row'}}>
+            {isSwitch ? (
+              <View />
+            ) : (
+              <MaterialCommunityIcons
+                style={{marginLeft: '70%'}}
+                name="account"
+                size={24}
+                color="#023E8A"
+              />
+            )}
+
+            <Switch
+              style={{marginLeft: '60%', position: 'absolute'}}
+              trackColor={{false: '#767577', true: '#767577'}}
+              thumbColor={isSwitch ? '#023E8A' : '#90E0EF'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isSwitch}
+            />
+
+            {isSwitch ? (
+              <MaterialCommunityIcons
+                style={{marginLeft: '89%'}}
+                name="format-title"
+                size={24}
+                color="#023E8A"
+              />
+            ) : (
+              <View />
+            )}
+          </View>
+          <TextInput
+            autoFocus={true}
+            style={{
+              alignSelf: 'center',
+              display: 'flex',
+              margin: '2%',
+              width: '90%',
+              height: 40,
+              backgroundColor: '#ccc',
+              borderRadius: 10,
+              padding: 10,
+            }}
+            placeholder={textoTextInput}
+            placeholderTextColor="#7286A0"
+            value={pesquisa}
+            onChangeText={text => pesquisar(text)}
+          />
+        </View>
       ) : (
         <Text />
       )}

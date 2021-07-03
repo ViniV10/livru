@@ -30,6 +30,6 @@ export default StyleSheet.create({
     flex: 1,
   },
   livros: {
-    marginBottom: 100,
+    marginBottom: 80,
   },
 });

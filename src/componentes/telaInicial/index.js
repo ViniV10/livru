@@ -23,23 +23,25 @@ export default function Home({navigation}) {
     createTable();
   }, []);
 
-  navigation.setOptions({
-    headerRight: () => (
-      <TouchableOpacity onPress={() => setSearchBar(!SearchBar)}>
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 5,
-            width: 40,
-            height: 40,
-            marginRight: 5,
-          }}>
-          <MaterialCommunityIcons name="magnify" size={28} color="#023E8A" />
-        </View>
-      </TouchableOpacity>
-    ),
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => setSearchBar(!SearchBar)}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 5,
+              width: 40,
+              height: 40,
+              marginRight: 5,
+            }}>
+            <MaterialCommunityIcons name="magnify" size={28} color="#023E8A" />
+          </View>
+        </TouchableOpacity>
+      ),
+    });
+  }, [SearchBar]);
 
   const createTable = async () => {
     try {
