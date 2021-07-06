@@ -21,11 +21,27 @@ export default StyleSheet.create({
   },
   menu: {
     backgroundColor: '#023E8A',
+    marginLeft: 210,
   },
   submenu: {
     width: 48,
     height: 48,
     borderRadius: 48 / 2,
     backgroundColor: '#023E8A',
+  },
+  text: {
+    color: '#E5E5E5',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
+    backgroundColor: '#023E8A',
+    borderRadius: 10,
+    marginRight: 10,
+    height: 35,
+  },
+  containerButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

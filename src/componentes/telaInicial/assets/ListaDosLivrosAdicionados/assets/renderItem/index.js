@@ -44,7 +44,7 @@ function renderizarLivros({item, index, onItemClick, onDelete}) {
   const alerta = () => {
     Alert.alert(
       'Confirmação',
-      'Deseja remover o livro e suas respectivas notas da biblioteca?',
+      `Deseja remover o livro '${item.title}' e suas respectivas notas da biblioteca?`,
       [
         {text: 'CANCELAR', onPress: () => swipeableRef.current.close()},
         {text: 'SIM', onPress: () => removeData()},

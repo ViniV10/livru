@@ -35,7 +35,7 @@ export default function (props, {item}) {
     <View>
       {carregando ? (
         <View style={estilos.loading}>
-          <ActivityIndicator size="large" color="#29f" />
+          <ActivityIndicator size="large" color="#023E8A" />
         </View>
       ) : (
         <FlatList

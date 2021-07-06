@@ -37,7 +37,7 @@ export default StyleSheet.create({
   texto: {
     flexDirection: 'row',
     margin: 0,
-    padding: 3,
+    padding: 2,
     alignItems: 'center',
   },
   textoPrincipal: {

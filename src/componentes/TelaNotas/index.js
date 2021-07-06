@@ -4,7 +4,7 @@ import {
   FlatList,
   Text,
   SafeAreaView,
-  Button,
+  ActivityIndicator,
   TouchableHighlight,
   Image,
   ImageBackground,
@@ -56,6 +56,7 @@ function NotaLivro({route, navigation}) {
 
   const getData = () => {
     try {
+      setLoading(true);
       db.transaction(tx => {
         tx.executeSql(
           'SELECT * FROM Notas WHERE bookId = ? ORDER BY priority',
@@ -73,6 +74,7 @@ function NotaLivro({route, navigation}) {
             }
           },
         );
+        setLoading(false);
       });
     } catch (error) {
       console.log(error);
@@ -194,7 +196,11 @@ function NotaLivro({route, navigation}) {
           borderWidth: 3,
           borderBottomWidth: 0,
         }}>
-        {ParteInfo()}
+        {loading ? (
+          <ActivityIndicator size="large" color="#023E8A" />
+        ) : (
+          ParteInfo()
+        )}
       </View>
     </SafeAreaView>
   );

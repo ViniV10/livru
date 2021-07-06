@@ -36,7 +36,15 @@ export default function Home({navigation}) {
               height: 40,
               marginRight: 5,
             }}>
-            <MaterialCommunityIcons name="magnify" size={28} color="#023E8A" />
+            {SearchBar ? (
+              <MaterialCommunityIcons name="magnify" size={28} color="#444" />
+            ) : (
+              <MaterialCommunityIcons
+                name="magnify"
+                size={28}
+                color="#023E8A"
+              />
+            )}
           </View>
         </TouchableOpacity>
       ),

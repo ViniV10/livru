@@ -1,5 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Text, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {
+  Text,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
 const db = SQLite.openDatabase(
@@ -31,6 +37,8 @@ export default function EditarNota({route, navigation}) {
             [title, description, id],
           );
         });
+        ToastAndroid.show('Nota editada', ToastAndroid.SHORT);
+
         navigation.goBack();
       } catch (error) {
         console.log(error);
@@ -53,6 +61,7 @@ export default function EditarNota({route, navigation}) {
         onChangeText={value => setTitle(value)}
       />
       <TextInput
+        multiline
         value={description}
         style={{
           backgroundColor: '#90E0EF',

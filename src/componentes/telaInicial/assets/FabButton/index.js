@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TouchableWithoutFeedback, Animated} from 'react-native';
+import {View, TouchableWithoutFeedback, Animated, Text} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 import style from './style';
@@ -70,17 +70,30 @@ export default function FabButton(props) {
   return (
     <View style={[style.container, props.style]}>
       <TouchableWithoutFeedback onPress={navegarTelaAdicionarLivros}>
-        <Animated.View style={[style.button, style.submenu, bookPlus]}>
-          <MaterialCommunityIcons name="book-plus" size={27} color="#90E0EF" />
+        <Animated.View style={[style.containerButton, bookPlus]}>
+          <Text style={style.text}>Adicionar livros manualmente</Text>
+          <View style={[style.button, style.submenu]}>
+            <MaterialCommunityIcons
+              name="book-plus"
+              size={27}
+              color="#90E0EF"
+            />
+          </View>
         </Animated.View>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={navegarTelaBuscarLivros}>
-        <Animated.View style={[style.button, style.submenu, bookSearch]}>
-          <MaterialCommunityIcons
-            name="book-search"
-            size={27}
-            color="#90E0EF"
-          />
+        <Animated.View style={[style.containerButton, bookSearch]}>
+          <Text style={[style.text, {marginLeft: 60}]}>
+            Pesquisar por livros
+          </Text>
+
+          <View style={[style.button, style.submenu]}>
+            <MaterialCommunityIcons
+              name="book-search"
+              size={27}
+              color="#90E0EF"
+            />
+          </View>
         </Animated.View>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={toggleMenu}>

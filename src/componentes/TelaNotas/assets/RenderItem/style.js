@@ -27,4 +27,47 @@ export default StyleSheet.create({
     marginBottom: 5,
     margin: 5,
   },
+
+  //
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 5,
+    backgroundColor: '#E5E5E5',
+    borderRadius: 20,
+    marginTop: 100,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    margin: 10,
+    borderRadius: 20,
+    padding: 15,
+    elevation: 2,
+    alignItems: 'center',
+  },
+  buttonClose: {
+    backgroundColor: '#023E8A',
+  },
+  textStyle: {
+    fontSize: 15,
+  },
+  modalText: {
+    color: '#023E8A',
+    fontSize: 20,
+    marginBottom: 15,
+    textAlign: 'center',
+  },
 });

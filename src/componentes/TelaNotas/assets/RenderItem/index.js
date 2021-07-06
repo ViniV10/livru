@@ -1,5 +1,13 @@
-import React, {useEffect, useRef} from 'react';
-import {View, Text, ToastAndroid, TouchableOpacity, Alert} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {
+  View,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  Alert,
+  Modal,
+  ScrollView,
+} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import style from './style';
@@ -39,17 +47,42 @@ function renderizarLivros({item, _id, onItemClick, onDelete}) {
         tx.executeSql(
           'DELETE FROM Notas WHERE id = ?',
           [item.id],
-          onDelete(),
           error => {
             console.log(error);
           },
           ToastAndroid.show('Nota removida', ToastAndroid.SHORT),
           swipeableRef.current.close(),
+          onDelete(),
         );
       });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const NotaExpandida = () => {
+    return (
+      <View style={style.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <ScrollView>
+            <View style={style.centeredView}>
+              <View style={style.modalView}>
+                <Text style={style.modalText}>{item.title}</Text>
+                <Text style={style.textStyle}> {item.description}</Text>
+              </View>
+            </View>
+          </ScrollView>
+        </Modal>
+      </View>
+    );
   };
 
   return (
@@ -59,9 +92,16 @@ function renderizarLivros({item, _id, onItemClick, onDelete}) {
       onSwipeableRightWillOpen={alerta}>
       <View style={{flexDirection: 'row'}}>
         <View style={style.container}>
-          <Text style={style.titulo}>{item.title}</Text>
-          <Text style={style.descrição}>{item.description}</Text>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <Text numberOfLines={2} style={style.titulo}>
+              {item.title}
+            </Text>
+            <Text numberOfLines={5} style={style.descrição}>
+              {item.description}
+            </Text>
+          </TouchableOpacity>
         </View>
+        {modalVisible ? <NotaExpandida /> : <View />}
         <TouchableOpacity style={style.botão} onPress={() => onItemClick(_id)}>
           <MaterialCommunityIcons name="pencil" color={'#023E8A'} size={21} />
         </TouchableOpacity>

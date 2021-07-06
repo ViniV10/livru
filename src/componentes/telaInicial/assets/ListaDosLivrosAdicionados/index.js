@@ -59,7 +59,6 @@ export default function LivrosTelaInicial({navigation, SearchBar}) {
       ? setTextoTextInput('Pesquisar (por autor)')
       : setTextoTextInput('Pesquisar (por título)');
     pesquisar();
-    console.warn(isSwitch);
   };
 
   useEffect(() => {
@@ -134,17 +133,19 @@ export default function LivrosTelaInicial({navigation, SearchBar}) {
       setPesquisa(text);
     }
   };
-
   return (
     <SafeAreaView>
       {SearchBar ? (
         <View>
           <View style={{alignItems: 'center', flexDirection: 'row'}}>
+            <Text style={{color: '#023E8A', marginLeft: 20}}>
+              Número de livros: {dadosFiltrados.length}
+            </Text>
             {isSwitch ? (
               <View />
             ) : (
               <MaterialCommunityIcons
-                style={{marginLeft: '70%'}}
+                style={{marginLeft: '70%', position: 'absolute'}}
                 name="account"
                 size={24}
                 color="#023E8A"
@@ -162,7 +163,7 @@ export default function LivrosTelaInicial({navigation, SearchBar}) {
 
             {isSwitch ? (
               <MaterialCommunityIcons
-                style={{marginLeft: '89%'}}
+                style={{marginLeft: '90%', position: 'absolute'}}
                 name="format-title"
                 size={24}
                 color="#023E8A"

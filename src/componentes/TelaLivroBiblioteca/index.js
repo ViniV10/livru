@@ -118,14 +118,18 @@ function LivroBiblioteca({route, navigation}) {
           <View style={estilos.texto}>
             <Text style={{color: '#023E8A'}}> Autoria: </Text>
             <Text numberOfLines={1} style={estilos.textoPrincipal}>
-              {dados.authors !== undefined ? dados.authors : '-'}
+              {dados.authors !== undefined && dados.authors !== ''
+                ? dados.authors
+                : '-'}
               {dados.authors > 0 ? '...' : ''}
             </Text>
           </View>
           <View style={estilos.texto}>
             <Text style={{color: '#023E8A'}}> Editora: </Text>
             <Text numberOfLines={1} style={estilos.textoPrincipal}>
-              {dados.publisher !== undefined ? dados.publisher : '-'}
+              {dados.publisher !== undefined && dados.publisher !== ''
+                ? dados.publisher
+                : '-'}
               {dados.publisher > 0 ? '...' : ''}
             </Text>
           </View>
@@ -134,16 +138,38 @@ function LivroBiblioteca({route, navigation}) {
             <View style={estilos.texto}>
               <Text style={{color: '#023E8A'}}>Páginas: </Text>
               <Text numberOfLines={1} style={estilos.textoPrincipal}>
-                {dados.pages !== undefined ? `${dados.pages}          ` : '-'}
+                {dados.pages !== undefined && dados.pages !== ''
+                  ? `${dados.pages}          `
+                  : '-           '}
               </Text>
             </View>
 
             <View style={estilos.texto}>
               <Text style={{color: '#023E8A'}}>Linguagem: </Text>
               <Text numberOfLines={1} style={estilos.textoPrincipal}>
-                {dados.language !== 'un' ? `${dados.language}` : '-'}
+                {dados.language !== 'un' && dados.language !== ''
+                  ? `${dados.language}`
+                  : '-'}
               </Text>
             </View>
+          </View>
+
+          <View style={estilos.texto}>
+            <Text style={{color: '#023E8A'}}>Categoria(s): </Text>
+            <Text numberOfLines={1} style={estilos.textoPrincipal}>
+              {dados.categories !== undefined && dados.categories !== ''
+                ? `${dados.categories}`
+                : '-'}
+            </Text>
+          </View>
+
+          <View style={estilos.texto}>
+            <Text style={{color: '#023E8A'}}>Data de publicação: </Text>
+            <Text numberOfLines={1} style={estilos.textoPrincipal}>
+              {dados.publishedDate !== undefined && dados.publishedDate !== ''
+                ? `${dados.publishedDate}`
+                : '-'}
+            </Text>
           </View>
         </View>
 

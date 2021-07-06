@@ -57,3 +57,6 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+#api
+src/componentes/TelaPesquisaLivros/assets/API

@@ -125,79 +125,95 @@ function LivroExpandido({route, item, navigation}) {
 
   function ParteImagem() {
     return (
-      <TouchableHighlight style={{flex: 1}} onLongPress={() => alerta()}>
-        <View style={{flex: 1}}>
+      <View style={{flex: 1}}>
+        {dados.volumeInfo.imageLinks ? (
+          <ImageBackground
+            source={{uri: dados.volumeInfo.imageLinks.thumbnail}}
+            style={estilos.background}
+            blurRadius={5}>
+            <Text numberOfLines={1} style={estilos.titulo}>
+              {dados.volumeInfo.title}
+            </Text>
+          </ImageBackground>
+        ) : (
+          <ImageBackground
+            style={({flex: 1}, estilos.background)}
+            source={require('../TelaPesquisaLivros/assets/images/semImagem.png')}
+            blurRadius={10}>
+            <Text numberOfLines={1} style={estilos.titulo}>
+              {dados.volumeInfo.title}
+            </Text>
+          </ImageBackground>
+        )}
+        <View style={{flex: 5, paddingTop: 10, alignItems: 'center'}}>
           {dados.volumeInfo.imageLinks ? (
-            <ImageBackground
+            <Image
               source={{uri: dados.volumeInfo.imageLinks.thumbnail}}
-              style={estilos.background}
-              blurRadius={5}>
-              <Text numberOfLines={1} style={estilos.titulo}>
-                {dados.volumeInfo.title}
-              </Text>
-            </ImageBackground>
+              style={estilos.imagem}
+            />
           ) : (
-            <ImageBackground
-              style={({flex: 1}, estilos.background)}
+            <Image
+              style={estilos.imagem}
               source={require('../TelaPesquisaLivros/assets/images/semImagem.png')}
-              blurRadius={10}>
-              <Text numberOfLines={1} style={estilos.titulo}>
-                {dados.volumeInfo.title}
-              </Text>
-            </ImageBackground>
+            />
           )}
-          <View style={{flex: 5, paddingTop: 10, alignItems: 'center'}}>
-            {dados.volumeInfo.imageLinks ? (
-              <Image
-                source={{uri: dados.volumeInfo.imageLinks.thumbnail}}
-                style={estilos.imagem}
-              />
-            ) : (
-              <Image
-                style={estilos.imagem}
-                source={require('../TelaPesquisaLivros/assets/images/semImagem.png')}
-              />
-            )}
-          </View>
         </View>
-      </TouchableHighlight>
+      </View>
     );
   }
   function ParteInfo() {
     return (
       <ScrollView>
-        <View style={estilos.containerInfo}>
-          <View style={estilos.texto}>
-            <Text style={{color: '#023E8A'}}> Autoria </Text>
-            <Text
-              numberOfLines={1}
-              style={({width: 80}, estilos.textoPrincipal)}>
-              {dados.volumeInfo.authors !== undefined ||
-              dados.volumeInfo.authors > 0
-                ? dados.volumeInfo.authors[0]
-                : '        -'}
-              {dados.volumeInfo.authors > 0 ? '...' : ''}
-            </Text>
-          </View>
+        <ScrollView horizontal={true}>
+          <View style={estilos.containerInfo}>
+            <View style={estilos.texto}>
+              <Text style={{color: '#023E8A'}}> Autoria </Text>
+              <Text numberOfLines={1} style={estilos.textoPrincipal}>
+                {dados.volumeInfo.authors !== undefined ||
+                dados.volumeInfo.authors > 0
+                  ? dados.volumeInfo.authors[0]
+                  : '        -'}
+                {dados.volumeInfo.authors > 0 ? '...' : ''}
+              </Text>
+            </View>
 
-          <View style={estilos.texto}>
-            <Text style={{color: '#023E8A'}}>Páginas </Text>
-            <Text numberOfLines={1} style={estilos.textoPrincipal}>
-              {dados.volumeInfo.pageCount !== undefined
-                ? `     ${dados.volumeInfo.pageCount}`
-                : '        -'}
-            </Text>
-          </View>
+            <View style={estilos.texto}>
+              <Text style={{color: '#023E8A'}}>Páginas </Text>
+              <Text numberOfLines={1} style={estilos.textoPrincipal}>
+                {dados.volumeInfo.pageCount !== undefined
+                  ? `     ${dados.volumeInfo.pageCount}`
+                  : '        -'}
+              </Text>
+            </View>
 
-          <View style={estilos.texto}>
-            <Text style={{color: '#023E8A'}}>Linguagem </Text>
-            <Text numberOfLines={1} style={estilos.textoPrincipal}>
-              {dados.volumeInfo.language !== 'un'
-                ? `      ${dados.volumeInfo.language}`
-                : '        -'}
-            </Text>
+            <View style={estilos.texto}>
+              <Text style={{color: '#023E8A'}}>Linguagem </Text>
+              <Text numberOfLines={1} style={estilos.textoPrincipal}>
+                {dados.volumeInfo.language !== 'un'
+                  ? `      ${dados.volumeInfo.language}`
+                  : '        -'}
+              </Text>
+            </View>
+
+            <View style={estilos.texto}>
+              <Text style={{color: '#023E8A'}}>Editora </Text>
+              <Text numberOfLines={1} style={estilos.textoPrincipal}>
+                {dados.volumeInfo.publisher !== undefined
+                  ? `${dados.volumeInfo.publisher}`
+                  : '        -'}
+              </Text>
+            </View>
+
+            <View style={estilos.texto}>
+              <Text style={{color: '#023E8A'}}>Categoria </Text>
+              <Text numberOfLines={1} style={estilos.textoPrincipal}>
+                {dados.volumeInfo.categories !== undefined
+                  ? `${dados.volumeInfo.categories}`
+                  : '        -'}
+              </Text>
+            </View>
           </View>
-        </View>
+        </ScrollView>
 
         {/* Linha divisória */}
         <View
