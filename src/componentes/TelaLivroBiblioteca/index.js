@@ -112,7 +112,11 @@ function LivroBiblioteca({route, navigation}) {
             <TouchableOpacity
               style={estilos.botão}
               onPress={() => navigation.navigate('EditarLivro', {dados})}>
-              <Image source={require('./assets/images/book-edit.png')} />
+              <MaterialCommunityIcons
+                name="pencil"
+                color={'#023E8A'}
+                size={21}
+              />
             </TouchableOpacity>
           </View>
           <View style={estilos.texto}>

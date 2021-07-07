@@ -67,7 +67,7 @@ export default function Home({navigation}) {
   return (
     <View style={{flex: 1, backgroundColor: '#E5E5E5'}}>
       <ListaLivros SearchBar={SearchBar} />
-      <FabButton style={{bottom: 40, right: 30}} />
+      <FabButton style={{bottom: 40, right: 25}} />
     </View>
   );
 }

@@ -40,7 +40,6 @@ export default StyleSheet.create({
     backgroundColor: '#E5E5E5',
     borderRadius: 20,
     marginTop: 100,
-    padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -69,5 +68,8 @@ export default StyleSheet.create({
     fontSize: 20,
     marginBottom: 15,
     textAlign: 'center',
+  },
+  closeCircle: {
+    alignSelf: 'center',
   },
 });

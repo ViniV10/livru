@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#90E0EF',
     borderRadius: 10,
-    margin: 10,
+    margin: 8,
     padding: 15,
   },
   buttonAdicionar: {
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     width: 45,
     height: 45,
     marginRight: 5,
-    marginTop: 10,
+    marginTop: 0,
   },
   foto: {
     width: 55,
@@ -55,13 +55,12 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    marginTop: 2,
   },
   modalView: {
-    margin: 10,
+    margin: 0,
     backgroundColor: '#E5E5E5',
     borderRadius: 20,
-    padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -93,5 +92,8 @@ export default StyleSheet.create({
     color: '#023E8A',
     marginBottom: 15,
     textAlign: 'center',
+  },
+  closeCircle: {
+    alignSelf: 'center',
   },
 });

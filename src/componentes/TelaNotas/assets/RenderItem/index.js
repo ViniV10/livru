@@ -7,6 +7,7 @@ import {
   Alert,
   Modal,
   ScrollView,
+  Pressable,
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -75,8 +76,19 @@ function renderizarLivros({item, _id, onItemClick, onDelete}) {
           <ScrollView>
             <View style={style.centeredView}>
               <View style={style.modalView}>
-                <Text style={style.modalText}>{item.title}</Text>
-                <Text style={style.textStyle}> {item.description}</Text>
+                <Pressable
+                  style={style.closeCircle}
+                  onPress={() => setModalVisible(false)}>
+                  <MaterialCommunityIcons
+                    name="circle-outline"
+                    color={'#023E8A'}
+                    size={14}
+                  />
+                </Pressable>
+                <View style={{padding: 20}}>
+                  <Text style={style.modalText}>{item.title}</Text>
+                  <Text style={style.textStyle}> {item.description}</Text>
+                </View>
               </View>
             </View>
           </ScrollView>

@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#90E0EF',
     borderRadius: 10,
-    margin: 10,
+    margin: 8,
     padding: 15,
   },
   buttonAdicionar: {
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     width: 45,
     height: 45,
     marginRight: 5,
-    marginTop: 10,
+    marginTop: 0,
   },
   foto: {
     width: 55,

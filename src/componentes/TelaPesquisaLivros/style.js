@@ -32,4 +32,7 @@ export default StyleSheet.create({
   livros: {
     marginBottom: 80,
   },
+  searchButton: {
+    padding: 7,
+  },
 });

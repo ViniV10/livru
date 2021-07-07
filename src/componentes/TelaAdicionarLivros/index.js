@@ -11,6 +11,7 @@ import {
   Image,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ImageResizer from 'react-native-image-resizer';
 import ImagePicker from 'react-native-image-crop-picker';
 import SQLite from 'react-native-sqlite-storage';
 import style from './style';
@@ -78,6 +79,7 @@ export default function Home({navigation}) {
         width: 300,
         height: 400,
         cropping: true,
+        compressImageQuality: 0.6,
       }).then(image => {
         setThumbnail(image.path);
         setModalVisible(!modalVisible);
@@ -89,6 +91,7 @@ export default function Home({navigation}) {
         width: 300,
         height: 400,
         cropping: true,
+        compressImageQuality: 0.6,
       }).then(image => {
         setThumbnail(image.path);
         setModalVisible(!modalVisible);
@@ -107,31 +110,42 @@ export default function Home({navigation}) {
             }}>
             <View style={style.centeredView}>
               <View style={style.modalView}>
-                <Text style={style.modalText}>
-                  Como você deseja adicionar a foto?
-                </Text>
-                <View style={style.buttonView}>
-                  <Pressable
-                    style={[style.button, style.buttonClose]}
-                    onPress={() => fotoCamera()}>
-                    <Text style={style.textStyle}>Câmera</Text>
-                    <MaterialCommunityIcons
-                      name="camera"
-                      color={'#90E0EF'}
-                      size={27}
-                    />
-                  </Pressable>
+                <Pressable
+                  style={style.closeCircle}
+                  onPress={() => setModalVisible(false)}>
+                  <MaterialCommunityIcons
+                    name="circle-outline"
+                    color={'#023E8A'}
+                    size={14}
+                  />
+                </Pressable>
+                <View style={{padding: 35}}>
+                  <Text style={style.modalText}>
+                    Como você deseja adicionar a foto?
+                  </Text>
+                  <View style={style.buttonView}>
+                    <Pressable
+                      style={[style.button, style.buttonClose]}
+                      onPress={() => fotoCamera()}>
+                      <Text style={style.textStyle}>Câmera</Text>
+                      <MaterialCommunityIcons
+                        name="camera"
+                        color={'#90E0EF'}
+                        size={27}
+                      />
+                    </Pressable>
 
-                  <Pressable
-                    style={[style.button, style.buttonClose]}
-                    onPress={() => fotoGaleria()}>
-                    <Text style={style.textStyle}>Galeria</Text>
-                    <MaterialCommunityIcons
-                      name="image-multiple"
-                      color={'#90E0EF'}
-                      size={27}
-                    />
-                  </Pressable>
+                    <Pressable
+                      style={[style.button, style.buttonClose]}
+                      onPress={() => fotoGaleria()}>
+                      <Text style={style.textStyle}>Galeria</Text>
+                      <MaterialCommunityIcons
+                        name="image-multiple"
+                        color={'#90E0EF'}
+                        size={27}
+                      />
+                    </Pressable>
+                  </View>
                 </View>
               </View>
             </View>

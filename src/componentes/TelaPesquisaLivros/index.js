@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, Pressable} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Livros from './assets/BuscarLivros';
 import style from './style';
 
@@ -23,9 +24,12 @@ export default function pesquisaLivros() {
           onKeyPress={() => setPesquisa(true)}
           onChangeText={text => pesquisar(text)}
         />
+        <Pressable style={style.searchButton} onPress={() => setPesquisa(true)}>
+          <MaterialCommunityIcons name="magnify" size={28} color="#023E8A" />
+        </Pressable>
       </View>
       <View style={style.livros}>
-        {pesquisa ? <Livros nome={nome} /> : <Text> </Text>}
+        {pesquisa ? <Livros nome={nome} /> : <Text />}
       </View>
     </View>
   );

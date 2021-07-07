@@ -74,6 +74,7 @@ export default function () {
             headerTintColor: '#023E8A',
             headerStyle: {
               backgroundColor: '#E5E5E5',
+              elevation: 0,
             },
           }}
         />

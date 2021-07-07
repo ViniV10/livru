@@ -80,6 +80,7 @@ export default function EditarLivro({route, navigation}) {
         width: 300,
         height: 400,
         cropping: true,
+        compressImageQuality: 0.6,
       }).then(image => {
         setThumbnail(image.path);
         setModalVisible(!modalVisible);
@@ -91,6 +92,7 @@ export default function EditarLivro({route, navigation}) {
         width: 300,
         height: 400,
         cropping: true,
+        compressImageQuality: 0.6,
       }).then(image => {
         setThumbnail(image.path);
         setModalVisible(!modalVisible);
