@@ -9,7 +9,7 @@ export default StyleSheet.create({
     padding: 15,
   },
   buttonAdicionar: {
-    backgroundColor: '#023E8A',
+    backgroundColor: '#023E8A', 
     display: 'flex',
     height: 40,
     width: '90%',
@@ -55,13 +55,12 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    marginTop: 2,
   },
   modalView: {
-    margin: 10,
+    margin: 0,
     backgroundColor: '#E5E5E5',
     borderRadius: 20,
-    padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -93,5 +92,8 @@ export default StyleSheet.create({
     color: '#023E8A',
     marginBottom: 15,
     textAlign: 'center',
+  },
+  closeCircle: {
+    alignSelf: 'center',
   },
 });

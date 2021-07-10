@@ -81,24 +81,6 @@ function NotaLivro({route, navigation}) {
     }
   };
 
-  const setData = async () => {
-    if (title.length == 0) {
-      alert('Por favor, digite o título da nota');
-    } else {
-      try {
-        await db.transaction(async tx => {
-          await tx.executeSql(
-            'INSERT INTO Notas (bookId, title , description , priority ) VALUES (?, ?, ?, ?)',
-            [bookId, description, title, priority],
-          );
-        });
-        navigation.navigate('Home');
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
   function ParteImagem() {
     return (
       <TouchableHighlight style={{flex: 1}}>

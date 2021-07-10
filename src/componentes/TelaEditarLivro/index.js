@@ -111,31 +111,43 @@ export default function EditarLivro({route, navigation}) {
             }}>
             <View style={style.centeredView}>
               <View style={style.modalView}>
-                <Text style={style.modalText}>
-                  Como você deseja adicionar a foto?
-                </Text>
-                <View style={style.buttonView}>
-                  <Pressable
-                    style={[style.button, style.buttonClose]}
-                    onPress={() => fotoCamera()}>
-                    <Text style={style.textStyle}>Câmera</Text>
-                    <MaterialCommunityIcons
-                      name="camera"
-                      color={'#90E0EF'}
-                      size={27}
-                    />
-                  </Pressable>
+                <Pressable
+                  style={style.closeCircle}
+                  onPress={() => setModalVisible(false)}>
+                  <MaterialCommunityIcons
+                    name="circle-outline"
+                    color={'#023E8A'}
+                    size={14}
+                  />
+                </Pressable>
 
-                  <Pressable
-                    style={[style.button, style.buttonClose]}
-                    onPress={() => fotoGaleria()}>
-                    <Text style={style.textStyle}>Galeria</Text>
-                    <MaterialCommunityIcons
-                      name="image-multiple"
-                      color={'#90E0EF'}
-                      size={27}
-                    />
-                  </Pressable>
+                <View style={{padding: 35}}>
+                  <Text style={style.modalText}>
+                    Como você deseja adicionar a foto?
+                  </Text>
+                  <View style={style.buttonView}>
+                    <Pressable
+                      style={[style.button, style.buttonClose]}
+                      onPress={() => fotoCamera()}>
+                      <Text style={style.textStyle}>Câmera</Text>
+                      <MaterialCommunityIcons
+                        name="camera"
+                        color={'#90E0EF'}
+                        size={27}
+                      />
+                    </Pressable>
+
+                    <Pressable
+                      style={[style.button, style.buttonClose]}
+                      onPress={() => fotoGaleria()}>
+                      <Text style={style.textStyle}>Galeria</Text>
+                      <MaterialCommunityIcons
+                        name="image-multiple"
+                        color={'#90E0EF'}
+                        size={27}
+                      />
+                    </Pressable>
+                  </View>
                 </View>
               </View>
             </View>
