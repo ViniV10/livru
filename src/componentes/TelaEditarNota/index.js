@@ -57,7 +57,7 @@ export default function EditarNota({route, navigation}) {
           padding: 10,
           height: 100,
         }}
-        placeholder="título da nota"
+        placeholder="título"
         onChangeText={value => setTitle(value)}
       />
       <TextInput

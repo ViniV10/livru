@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {
-  View,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -46,7 +46,7 @@ function AdicionarNotas({navigation, route}) {
   };
 
   return (
-    <View>
+    <ScrollView style={{flex: 1, backgroundColor: '#E5E5E5', padding: 10}}>
       <TextInput
         style={{
           backgroundColor: '#90E0EF',
@@ -88,7 +88,7 @@ function AdicionarNotas({navigation, route}) {
         }}>
         <Text style={{color: '#E5E5E5'}}>Pronto!</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 

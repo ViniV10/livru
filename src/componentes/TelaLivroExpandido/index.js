@@ -51,13 +51,6 @@ function LivroExpandido({route, item, navigation}) {
     }
   };
 
-  const alerta = () => {
-    Alert.alert('Confirmação', 'Deseja adicionar o livro à biblioteca?', [
-      {text: 'CANCELAR', onPress: ''},
-      {text: 'SIM', onPress: () => setData()},
-    ]);
-  };
-
   navigation.setOptions({
     headerRight: () => (
       <TouchableOpacity onPress={setData}>
