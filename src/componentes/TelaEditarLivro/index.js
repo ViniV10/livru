@@ -75,28 +75,86 @@ export default function EditarLivro({route, navigation}) {
   const Alerta = () => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const fotoCamera = () => {
-      ImagePicker.openCamera({
-        width: 300,
+    const fotoGaleria = () => {
+      ImagePicker.openPicker({
+        cropping: false,
         height: 400,
-        cropping: true,
-        compressImageQuality: 0.6,
+        width: 300,
       }).then(image => {
-        setThumbnail(image.path);
-        setModalVisible(!modalVisible);
+        let divider = 1;
+        if (image.size > 300000) {
+          divider = image.size / 300000;
+        }
+        ImageResizer.createResizedImage(
+          image.path,
+          image.width / divider,
+          image.height / divider,
+          'JPEG',
+          100,
+          0,
+          null,
+        )
+          .then(resp => {
+            ImagePicker.openCropper({
+              height: 800,
+              width: 600,
+              path: resp.uri,
+            })
+              .catch(e => {
+                console.log(e);
+                ToastAndroid.show('Seleção cancelada', ToastAndroid.SHORT);
+              })
+              .then(image => {
+                setThumbnail(image.path);
+                setModalVisible(!modalVisible);
+              });
+          })
+          .catch(e => {
+            console.log(e);
+            ToastAndroid.show('Seleção cancelada', ToastAndroid.SHORT);
+          });
       });
     };
 
-    const fotoGaleria = () => {
-      ImagePicker.openPicker({
+    const fotoCamera = () => {
+      console.log(thumbnail);
+      ImagePicker.openCamera({
+        cropping: false,
         width: 300,
         height: 400,
-        cropping: true,
-        compressImageQuality: 0.6,
-      }).then(image => {
-        setThumbnail(image.path);
-        setModalVisible(!modalVisible);
-      });
+      })
+        .then(image => {
+          let divider = 1;
+          if (image.size > 300000) {
+            divider = image.size / 300000;
+          }
+          ImageResizer.createResizedImage(
+            image.path,
+            image.width / divider,
+            image.height / divider,
+            'JPEG',
+            100,
+            0,
+            null,
+          ).then(resp => {
+            ImagePicker.openCropper({
+              width: 300,
+              height: 400,
+              path: resp.uri,
+            })
+              .then(image => {
+                setThumbnail(image.path);
+                setModalVisible(!modalVisible);
+              })
+              .catch(e => {
+                console.log(e);
+                ToastAndroid.show('Seleção cancelada', ToastAndroid.SHORT);
+              });
+          });
+        })
+        .catch(e => {
+          ToastAndroid.show('Seleção cancelada', ToastAndroid.SHORT);
+        });
     };
 
     const CaixaDeAlerta = () => {

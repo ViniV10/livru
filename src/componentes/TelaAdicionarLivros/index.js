@@ -123,7 +123,6 @@ export default function Home({navigation}) {
         height: 400,
       })
         .then(image => {
-          console.log('a');
           let divider = 1;
           if (image.size > 300000) {
             divider = image.size / 300000;
@@ -148,7 +147,6 @@ export default function Home({navigation}) {
               })
               .catch(e => {
                 console.log(e);
-                console.log('a');
                 ToastAndroid.show('Seleção cancelada', ToastAndroid.SHORT);
               });
           });
